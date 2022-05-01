@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Canvas from '../components/canvas'
+import Footer from '../components/footer'
 
 
 const Home: NextPage = () => {
@@ -15,7 +16,7 @@ const Home: NextPage = () => {
       </Head>
       <Canvas />
 
-     
+      <Footer />
     </div>
   )
 }
