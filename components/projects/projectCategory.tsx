@@ -16,14 +16,14 @@ function ProjectCategory({ projectCategory }: ProjectCategoryProps) {
 
         <div className="cursor-pointer self-center grid grid-cols-2 overflow-y-scroll w-[90vw]  scrollbarHide sm:w-[60vw] gap-2">
             {projectCategory.map((project, key) => (
-                <a rel="noreferrer" key={key} target="_blank" href={project.link} className="relative flex w-[100%] aspect-[89/50] ">
+                <a rel="noreferrer" key={key} target="_blank" href={project.link} className="relative flex w-[100%] aspect-[89/50] drop-shadow-[.1rem_.1rem_.1rem_#000] ">
                     <Image
                         src={project.photoURL}
                         objectFit="contain"
                         layout='fill'
+                        className='rounded-sm'
                         alt={project.title}
                     />
-                    {/* aaa */}
                 </a>
             ))}
         </div>

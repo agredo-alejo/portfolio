@@ -13,9 +13,9 @@ const projectCategories = [
             category: "particle"
         },
         {
-            title: "bouncing",
-            photoURL: "/particle/bouncing/bouncing.png",
-            link: "/particle/bouncing/index.html",
+            title: "waves",
+            photoURL: "/math/sine_wave/waves.png",
+            link: "/math/sine_wave/index.html",
             category: "particle"
         },
         {

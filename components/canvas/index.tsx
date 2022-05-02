@@ -53,7 +53,7 @@ function Canvas() {
     return (
         <canvas
             ref={canvasRef}
-            className="fixed h-full min-h-screen -z-10"
+            className="fixed min-w-full min-h-screen -z-10"
         />
     )
 }
