@@ -1,0 +1,33 @@
+import Image from 'next/image'
+import React from 'react'
+
+interface ProjectCategoryProps {
+    projectCategory: {
+        title: string,
+        photoURL: string,
+        link: string,
+        category: string
+    }[],
+}
+function ProjectCategory({ projectCategory }: ProjectCategoryProps) {
+
+
+    return (
+
+        <div className="cursor-pointer self-center grid grid-cols-2 overflow-y-scroll w-[90vw]  scrollbarHide sm:w-[60vw] gap-2">
+            {projectCategory.map((project, key) => (
+                <a rel="noreferrer" key={key} target="_blank" href={project.link} className="relative flex w-[100%] aspect-[89/50] ">
+                    <Image
+                        src={project.photoURL}
+                        objectFit="contain"
+                        layout='fill'
+                        alt={project.title}
+                    />
+                    {/* aaa */}
+                </a>
+            ))}
+        </div>
+    )
+}
+
+export default ProjectCategory

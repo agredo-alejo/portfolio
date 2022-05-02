@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import Canvas from '../components/canvas'
 import Footer from '../components/footer'
 import Header from '../components/header'
+import Projects from '../components/projects'
 import Skills from '../components/skills'
 import WebSection from '../components/webSection'
 
@@ -25,9 +26,9 @@ const Home: NextPage = () => {
       <Canvas />
 
       <Header scroll={scroll} />
+      <Projects />
       <WebSection scrollRef={scrollRef} />
       <Skills />
-
       <Footer />
     </div>
   )
