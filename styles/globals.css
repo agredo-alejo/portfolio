@@ -2,18 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @layer components {
-  .modal{
-      position: fixed;
-      display: grid;
-      place-items: center;
-      place-content: center;
-      z-index: 1000;
-      background-color: #00000080;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-  }
+  
   .inputs {
     display: flex;
     width: 100%;
@@ -99,3 +88,15 @@ html::-webkit-scrollbar,body::-webkit-scrollbar {
         25% 95%,
         0% 50%);
 }
+.modal{
+      position: fixed;
+      display: grid;
+      place-items: center;
+      place-content: center;
+      z-index: 1000;
+      background-color: #00000080;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+  }
