@@ -43,17 +43,17 @@ function Canvas() {
         }
         resize()
 
-        window.addEventListener('resize', resize)
+        addEventListener('resize', resize)
         return () => {
             stopAnimation()
-            window.removeEventListener('resize', resize)
+            removeEventListener('resize', resize)
         }
     }, [])
 
     return (
         <canvas
             ref={canvasRef}
-            className="fixed -z-10"
+            className="fixed h-full min-h-screen -z-10"
         />
     )
 }

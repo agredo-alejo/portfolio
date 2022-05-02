@@ -15,12 +15,13 @@ const Home: NextPage = () => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" })
   }
   return (
-    <div>
+    <div className='h-full'>
       <Head>
         <title>Alejandro Agredo | Web Developer</title>
         <meta name="description" content="A web developer fascinated by problem-solving and creating interactive graphic interfaces" />
         <meta name="keywords" content="Portfolio, Web Developer, Tyescript, Node, Front-end, developer, React, NextJS, HTML, CSS, JavaScript" />
         <meta name="author" content="Alejandro Agredo" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Canvas />
