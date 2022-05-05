@@ -2,6 +2,7 @@ import React from 'react'
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 
 const links = [
     {
@@ -15,6 +16,10 @@ const links = [
     {
         link: "https://github.com/agredo-alejo",
         icon: <GitHubIcon />
+    },
+    {
+        link: "/resume-alejandro-agredo.docx",
+        icon: <AttachFileIcon/>
     }
 ]
 
@@ -29,6 +34,7 @@ function ContactLinks() {
                         target="_blank"
                         rel="noreferrer"
                         className='flex drop-shadow-[.1rem_.1rem_.1rem_#454545]'
+                        download={key === 3}
                     >
                         {link.icon}
 
