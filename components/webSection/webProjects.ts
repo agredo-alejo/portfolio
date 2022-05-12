@@ -9,10 +9,10 @@ const webProjects = [
     }, {
         desk: "/webimg/h_chat.png",
         phone: "/webimg/v_chat.png",
-        link: "https://whatsapp-clone-275.web.app/",
-        github: "https://github.com/agredo-alejo/whatsapp-clone",
-        title: "Chat App",
-        techs: ["React", "Tyescript", "Sass", "Firebase"]
+        link: "https://apollochat.vercel.app/",
+        github: "https://github.com/agredo-alejo/apollochat",
+        title: "Apollo Chat",
+        techs: ["NextJs", "Tyescript", "TailwindCss", "Firebase"]
     },
     {
         desk: "/webimg/h_inventory.png",
