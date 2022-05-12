@@ -18,7 +18,7 @@ const links = [
         icon: <GitHubIcon />
     },
     {
-        link: "/resume-alejandro-agredo.docx",
+        link: "/resume-alejandro-agredo.pdf",
         icon: <AttachFileIcon/>
     }
 ]
