@@ -8,20 +8,20 @@ const projectCategories = [
         },
         {
             title: "circular",
-            photoURL: "/particle/circular_motion/circular_motion.png",
-            link: "/particle/circular_motion/index.html",
+            photoURL: "/particle/circular/circular.png",
+            link: "/particle/circular/index.html",
             category: "particle"
         },
         {
             title: "waves",
-            photoURL: "/math/sine_wave/waves.png",
-            link: "/math/sine_wave/index.html",
+            photoURL: "/math/sineWave/waves.png",
+            link: "/math/sineWave/index.html",
             category: "particle"
         },
         {
             title: "gravity",
-            photoURL: "/particle/gravity_simulation/gravity_simulation.png",
-            link: "/particle/gravity_simulation/index.html",
+            photoURL: "/particle/gravity/gravity.png",
+            link: "/particle/gravity/index.html",
             category: "particle"
         },
 
@@ -29,7 +29,7 @@ const projectCategories = [
     [
         {
             title: "ray casting",
-            photoURL: "/render/rayCasting/ray_casting.png",
+            photoURL: "/render/rayCasting/rayCasting.png",
             link: "/render/rayCasting/index.html",
             category: "render"
         },
@@ -41,34 +41,34 @@ const projectCategories = [
         },
         {
             title: "tesseract",
-            photoURL: "/render/ray_marching/ray_marching.png",
-            link: "/render/ray_marching/index.html",
+            photoURL: "/render/rayMarching/rayMarching.png",
+            link: "/render/rayMarching/index.html",
             category: "render"
         },
         {
             title: "tesseract",
-            photoURL: "/render/3d_cylinder/3d_cylinder.png",
-            link: "/render/3d_cylinder/index.html",
+            photoURL: "/render/3dCylinder/3dCylinder.png",
+            link: "/render/3dCylinder/index.html",
             category: "render"
         },
     ],
     [
         {
             title: "visualize health",
-            photoURL: "/genetic/GA_Visualize_Health/GA_Visualize_Health.png",
-            link: "/genetic/GA_Visualize_Health/index.html",
+            photoURL: "/genetic/GA_VisualizeHealth/GA_VisualizeHealth.png",
+            link: "/genetic/GA_VisualizeHealth/index.html",
             category: "genetic"
         },
         {
             title: "visualize relationship",
-            photoURL: "/genetic/GA_Visualize_Relationship/GA_Visualize_Relationship.png",
-            link: "/genetic/GA_Visualize_Relationship/index.html",
+            photoURL: "/genetic/GA_VisualizeRelationship/GA_VisualizeRelationship.png",
+            link: "/genetic/GA_VisualizeRelationship/index.html",
             category: "genetic"
         },
         {
             title: "visualize relationship",
-            photoURL: "/genetic/NEAT_Flappy_Bird/NEAT_Flappy_Bird.png",
-            link: "/genetic/NEAT_Flappy_Bird/index.html",
+            photoURL: "/genetic/NEAT_FlappyBird/NEAT_FlappyBird.png",
+            link: "/genetic/NEAT_FlappyBird/index.html",
             category: "genetic"
         },
     ],
@@ -87,8 +87,8 @@ const projectCategories = [
         },
         {
             title: "visualize relationship",
-            photoURL: "/genetic/NEAT_Flappy_Bird/NEAT_Flappy_Bird.png",
-            link: "/genetic/NEAT_Flappy_Bird/index.html",
+            photoURL: "/genetic/NEAT_FlappyBird/NEAT_FlappyBird.png",
+            link: "/genetic/NEAT_FlappyBird/index.html",
             category: "ai"
         },
     ],
