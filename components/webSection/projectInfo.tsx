@@ -1,16 +1,10 @@
 import React from "react";
 import { BiLinkExternal } from "react-icons/bi";
 import { FiGithub } from "react-icons/fi";
+import { WebProject } from ".";
 
 export interface ProjectProps {
-   project: {
-      desk: string;
-      phone: string;
-      link: string;
-      github: string;
-      title: string;
-      techs: string[];
-   };
+   project: WebProject;
 }
 
 function ProjectInfo({ project }: ProjectProps) {
