@@ -4,7 +4,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../utils/firebaseConfig";
+import { db } from "@/utils/firebaseConfig";
 
 const links = [
    {

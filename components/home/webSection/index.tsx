@@ -7,7 +7,7 @@ import {
    where,
 } from "firebase/firestore";
 import React, { RefObject, useEffect, useState } from "react";
-import { db } from "../../utils/firebaseConfig";
+import { db } from "@/utils/firebaseConfig";
 import WebProject from "./webProject";
 
 interface WebSectionProps {
