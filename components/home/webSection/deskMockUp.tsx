@@ -11,15 +11,14 @@ function DeskMockUpModal({
 }: MockUpModalProps) {
    return (
       <Modal handleClose={() => handleClose()} show={show}>
-         {/* eslint-disable-next-line react/jsx-no-target-blank */}
-         <a href={link} target="_blank">
+         <a href={link} target="_blank" rel="noreferrer">
             <span className="drop-shadow-[.1rem_.1rem_.1rem_#222] hover:scale-[1.01] aspect-[5/3] w-[90vmin]  flex">
                <Image
                   src={photoUrl}
                   alt="monitor preview"
                   priority
-                  objectFit="contain"
-                  layout="fill"
+                  fill
+                  className="!relative"
                />
             </span>
          </a>

@@ -12,14 +12,14 @@ function Skills() {
                   key={key}
                   target="_blank"
                   href={skill.link}
-                  className="flex items-center m-2 relative w-7 h-7 hover:drop-shadow-[0_0_.2rem_gray]"
+                  className="flex items-center m-2  w-7 h-7 hover:drop-shadow-[0_0_.2rem_gray] relative"
                   rel="noreferrer"
                >
                   <Image
                      src={skill.photoURL}
                      alt={skill.title}
-                     objectFit="contain"
-                     layout="fill"
+                     fill
+                     className="!relative !w-full !h-auto"
                   />
                </a>
             ))}

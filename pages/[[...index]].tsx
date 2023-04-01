@@ -1,4 +1,3 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
@@ -9,7 +8,7 @@ import WebSection from "@/components/home/webSection";
 import Skills from "@/components/home/skills";
 import Footer from "@/components/home/footer";
 
-const Home: NextPage = () => {
+function Home() {
    const router = useRouter();
 
    useEffect(() => {
@@ -63,6 +62,6 @@ const Home: NextPage = () => {
          <Footer />
       </div>
    );
-};
+}
 
 export default Home;
