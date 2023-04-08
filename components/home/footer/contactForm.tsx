@@ -29,11 +29,7 @@ function ContactForm() {
    };
 
    return (
-      <form
-         id="contactForm"
-         className="flex flex-col max-w-xl mt-4 w-80"
-         onSubmit={sendEmail}
-      >
+      <form className="flex flex-col max-w-xl mt-4 w-80" onSubmit={sendEmail}>
          <div className="inputBox">
             <input
                required

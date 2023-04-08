@@ -1,33 +1,22 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
-import Canvas from "@/components/home/canvas";
+import Canvas from "@/components/canvas";
 import Header from "@/components/home/header";
 import Projects from "@/components/home/projects";
 import WebSection from "@/components/home/webSection";
 import Skills from "@/components/home/skills";
 import Footer from "@/components/home/footer";
+import Navbar from "@/components/navbar/navbar";
+import Solutions from "@/components/home/solutions/solutions";
+import Experiments from "@/components/home/experiments/experiments";
 
 function Home() {
-   const router = useRouter();
-
-   useEffect(() => {
-      const urlParams = Object.keys(router.query).length;
-      if (urlParams === 0) return;
-
-      router.replace("/");
-   }, [router]);
-
-   const scrollRef = useRef<HTMLElement>(null);
-   const scroll = () => {
-      scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-   };
-
    const description =
       "A web developer fascinated by problem-solving and creating interactive graphic interfaces";
 
    return (
-      <div className="h-full">
+      <div className="flex flex-col items-center w-full h-full">
          <Head>
             <title> Alejandro Agredo | Web Developer </title>
             <meta name="description" content={description} />
@@ -54,10 +43,13 @@ function Home() {
             />
          </Head>
          <Canvas />
+         <Navbar />
 
-         <Header scroll={scroll} />
-         <Projects />
-         <WebSection scrollRef={scrollRef} />
+         <Header />
+         <Solutions />
+         {/* <Projects /> */}
+         <Experiments />
+         {/* <WebSection  /> */}
          <Skills />
          <Footer />
       </div>

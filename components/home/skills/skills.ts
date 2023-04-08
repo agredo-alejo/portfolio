@@ -7,7 +7,7 @@ export const skills = [
    {
       link: "https://www.typescriptlang.org/",
       photoURL: "/skillsIcons/typescript.png",
-      title: "Typescrip",
+      title: "TypeScript",
    },
    {
       link: "https://es.reactjs.org/",
@@ -22,7 +22,7 @@ export const skills = [
    {
       link: "https://nodejs.org/",
       photoURL: "/skillsIcons/node.png",
-      title: "Node",
+      title: "NodeJs",
    },
    {
       link: "https://nextjs.org/",
@@ -54,26 +54,26 @@ export const skills = [
       photoURL: "/skillsIcons/tailwindcss.png",
       title: "TailwindCss",
    },
-   {
-      link: "https://www.mongodb.com/",
-      photoURL: "/skillsIcons/mongodb.png",
-      title: "MongoDB",
-   },
-   {
-      link: "https://socket.io/",
-      photoURL: "/skillsIcons/socket-io.png",
-      title: "Socket.IO",
-   },
+   // {
+   //    link: "https://www.mongodb.com/",
+   //    photoURL: "/skillsIcons/mongodb.png",
+   //    title: "MongoDB",
+   // },
+   // {
+   //    link: "https://socket.io/",
+   //    photoURL: "/skillsIcons/socket-io.png",
+   //    title: "Socket.IO",
+   // },
    {
       link: "https://www.postman.com/",
       photoURL: "/skillsIcons/postman.png",
       title: "Postman",
    },
-   {
-      link: "https://web.dev/progressive-web-apps/",
-      photoURL: "/skillsIcons/pwa.png",
-      title: "PWA",
-   },
+   // {
+   //    link: "https://web.dev/progressive-web-apps/",
+   //    photoURL: "/skillsIcons/pwa.png",
+   //    title: "PWA",
+   // },
    {
       link: "https://stripe.com/",
       photoURL: "/skillsIcons/stripe-icon.png",
