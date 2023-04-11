@@ -1,25 +1,22 @@
-import React, { ReactNode, useRef } from 'react'
-import { useClickOutside } from './clickOutside'
+import React, { ReactNode, useRef } from "react";
+import { useClickOutside } from "@/hooks/clickOutside";
 
 interface ModalProps {
-    children: ReactNode | ReactNode[]
-    show: boolean
-    handleClose: () => void
+   children: ReactNode | ReactNode[];
+   show: boolean;
+   handleClose: () => void;
 }
 function Modal({ children, show, handleClose }: ModalProps) {
+   const modalRef = useRef(null);
+   useClickOutside(modalRef, handleClose);
 
-    const modalRef = useRef(null)
-    useClickOutside(modalRef, handleClose)
+   if (!show) return <></>;
 
-    if (!show) return <></>
-
-    return (
-        <div className='modal'>
-            <span ref={modalRef}>
-                {children}
-            </span>
-        </div>
-    )
+   return (
+      <div className="modal">
+         <span ref={modalRef}>{children}</span>
+      </div>
+   );
 }
 
-export default Modal
+export default Modal;

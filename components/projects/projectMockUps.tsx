@@ -39,7 +39,7 @@ function ProjectMockUps({ desk, phone, link }: ProjectMockUpsProps) {
    };
 
    return (
-      <>
+      <div className="relative pr-[3vw] mb-8 sm:mb-0 ">
          <DeskMockUpModal
             handleClose={() => {
                setShowDesk(false);
@@ -57,33 +57,31 @@ function ProjectMockUps({ desk, phone, link }: ProjectMockUpsProps) {
             photoUrl={photoUrl}
             link={link}
          />
-         <div className="relative pr-[3vw] mb-8 sm:mb-0 ">
-            <span
-               onClick={() => {
-                  setPhotoUrl(desk);
-                  openDeskModal();
-               }}
-               className="drop-shadow-[.1rem_.1rem_.1rem_#222] hover:scale-[1.01] w-[50vw] sm:w-[21vw] h-[30vw] sm:h-[13vw] flex relative"
-            >
-               <Image src={desk} alt="monitor preview" priority fill />
-            </span>
-            <span
-               onClick={() => {
-                  setPhotoUrl(phone);
-                  openPhoneModal();
-               }}
-               className="drop-shadow-[.1rem_.1rem_.1rem_#222] hover:scale-[1.01] absolute  right-0 bottom-[-5vw] aspect-[13/25] w-[13vw] sm:w-[7vw]"
-            >
-               <Image
-                  src={phone}
-                  alt="mobile preview"
-                  priority
-                  fill
-                  className="!relative"
-               />
-            </span>
-         </div>
-      </>
+         <span
+            onClick={() => {
+               setPhotoUrl(desk);
+               openDeskModal();
+            }}
+            className="drop-shadow-[.1rem_.1rem_.1rem_#222] hover:scale-[1.01] w-[50vw] sm:w-[25vw] md:w-[20vw]   aspect-[21/13] flex relative"
+         >
+            <Image src={desk} alt="monitor preview" priority fill />
+         </span>
+         <span
+            onClick={() => {
+               setPhotoUrl(phone);
+               openPhoneModal();
+            }}
+            className="drop-shadow-[.1rem_.1rem_.1rem_#222] hover:scale-[1.01] absolute  right-0 bottom-[-5vw] aspect-[13/25] w-[13vw] sm:w-[7vw]"
+         >
+            <Image
+               src={phone}
+               alt="mobile preview"
+               priority
+               fill
+               className="!relative"
+            />
+         </span>
+      </div>
    );
 }
 

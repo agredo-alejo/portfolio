@@ -4,10 +4,16 @@ function ContactForm() {
    const [name, setName] = useState("");
    const [email, setEmail] = useState("");
    const [message, setMessage] = useState("");
+   const [loading, setLoading] = useState(false);
 
    const sendEmail = async (e: FormEvent) => {
       e.preventDefault();
+      if (loading) return;
       try {
+         setLoading(true);
+         setName("");
+         setEmail("");
+         setMessage("");
          await fetch("/api/send_email", {
             method: "POST",
             headers: {
@@ -19,10 +25,7 @@ function ContactForm() {
                message,
             }),
          });
-
-         setName("");
-         setEmail("");
-         setMessage("");
+         setLoading(false);
       } catch (error) {
          console.error(error);
       }

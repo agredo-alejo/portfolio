@@ -1,13 +1,9 @@
 import React from "react";
 import { BiLinkExternal } from "react-icons/bi";
 import { FiGithub } from "react-icons/fi";
-import { WebProject } from ".";
+import { ProjectType } from "./projects";
 
-export interface ProjectProps {
-   project: WebProject;
-}
-
-function ProjectInfo({ project }: ProjectProps) {
+function ProjectInfo({ project }: { project: ProjectType }) {
    return (
       <div className="flex flex-col max-w-xl p-2 mb-4 ml-4 text-gray-200 sm:w-1/2">
          <div className="flex items-center justify-between w-full mb-2 mr-4">

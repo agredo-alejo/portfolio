@@ -1,16 +1,16 @@
 import { useExperiments } from "@/context/experimentsContext";
 import Image from "next/image";
 import React from "react";
-import projectCategories from "../projects/projects";
+import { experiments } from "./experimentProjects";
 
 function CategoryProjects() {
    const { activeCategory, setProject } = useExperiments();
-   const category = projectCategories[activeCategory];
+   const category = experiments[activeCategory];
    return (
-      <ul className="flex flex-col">
+      <ul className="flex ">
          {category.map((project, index) => (
             <button
-               className="relative flex w-[6rem] aspect-video hover:scale-105 hover:drop-shadow-[0_0_.1rem_#fff]]"
+               className="relative flex w-full mt-1 mx-1 rounded-lg overflow-hidden  aspect-video hover:scale-105 hover:drop-shadow-[0_0_.1rem_#fff]]"
                onClick={() => setProject(index)}
                key={project.link}
             >

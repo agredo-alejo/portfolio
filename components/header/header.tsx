@@ -1,5 +1,4 @@
-import React, { MouseEventHandler } from "react";
-import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
+import React from "react";
 import ContactLinks from "../contactLinks/contactLinks";
 
 function Header() {

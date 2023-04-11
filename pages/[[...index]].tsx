@@ -1,15 +1,12 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect, useRef } from "react";
 import Canvas from "@/components/canvas";
-import Header from "@/components/home/header";
-import Projects from "@/components/home/projects";
-import WebSection from "@/components/home/webSection";
-import Skills from "@/components/home/skills";
-import Footer from "@/components/home/footer";
+import Header from "@/components/header/header";
+import Skills from "@/components/skills";
+import Footer from "@/components/footer/footer";
 import Navbar from "@/components/navbar/navbar";
-import Solutions from "@/components/home/solutions/solutions";
-import Experiments from "@/components/home/experiments/experiments";
+import Solutions from "@/components/solutions/solutions";
+import Experiments from "@/components/experiments/experiments";
+import Projects from "@/components/projects/projects";
 
 function Home() {
    const description =
@@ -46,10 +43,8 @@ function Home() {
          <Navbar />
 
          <Header />
-         <Solutions />
-         {/* <Projects /> */}
+         <Projects />
          <Experiments />
-         {/* <WebSection  /> */}
          <Skills />
          <Footer />
       </div>

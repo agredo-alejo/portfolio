@@ -6,7 +6,7 @@ import ContactForm from "./contactForm";
 
 function Footer() {
    const router = useRouter();
-   const scrollRef = useRef<HTMLElement>(null);
+   const scrollRef = useRef<HTMLFormElement>(null);
 
    useEffect(() => {
       if (router.asPath !== "/contact") return;
