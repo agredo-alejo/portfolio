@@ -17,7 +17,7 @@ function ContactLinks() {
          <ContactLink link="https://github.com/agredo-alejo">
             <GitHubIcon />
          </ContactLink>
-         <ContactLink link="https://firebasestorage.googleapis.com/v0/b/portfolio-ab1e2.appspot.com/o/docs%2Fresume-alejandro-agredo.pdf?alt=media&token=fddf1703-c020-4e34-9e37-6ef673389328">
+         <ContactLink link="/resume-alejandro-agredo.pdf">
             <AttachFileIcon />
          </ContactLink>
       </div>
