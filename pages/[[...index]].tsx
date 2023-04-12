@@ -10,7 +10,7 @@ import Projects from "@/components/projects/projects";
 
 function Home() {
    const description =
-      "A web developer fascinated by problem-solving and creating interactive graphic interfaces";
+      "My passion for web development is fueled by my love of problem-solving and the constant opportunity to learn and improve my skills.";
 
    return (
       <div className="flex flex-col items-center w-full h-full">

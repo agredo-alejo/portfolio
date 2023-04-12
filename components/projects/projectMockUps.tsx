@@ -62,7 +62,7 @@ function ProjectMockUps({ desk, phone, link }: ProjectMockUpsProps) {
                setPhotoUrl(desk);
                openDeskModal();
             }}
-            className="drop-shadow-[.1rem_.1rem_.1rem_#222] hover:scale-[1.01] w-[50vw] sm:w-[25vw] md:w-[20vw]   aspect-[21/13] flex relative"
+            className="drop-shadow-[.1rem_.1rem_.1rem_#222] hover:scale-[1.01] w-[50vw] sm:w-[25vw] md:w-[15vw]   aspect-[21/13] flex relative"
          >
             <Image src={desk} alt="monitor preview" priority fill />
          </span>
@@ -71,7 +71,7 @@ function ProjectMockUps({ desk, phone, link }: ProjectMockUpsProps) {
                setPhotoUrl(phone);
                openPhoneModal();
             }}
-            className="drop-shadow-[.1rem_.1rem_.1rem_#222] hover:scale-[1.01] absolute  right-0 bottom-[-5vw] aspect-[13/25] w-[13vw] sm:w-[7vw]"
+            className="drop-shadow-[.1rem_.1rem_.1rem_#222] hover:scale-[1.01] absolute  right-0 bottom-[-5vw] aspect-[13/25] w-[13vw] sm:w-[7vw] md:w-[5vw]"
          >
             <Image
                src={phone}

@@ -13,8 +13,9 @@ function Header() {
             </h1>
             <ContactLinks />
             <p className="mt-2 text-xl ">
-               A web developer fascinated by problem solving and creating
-               interactive graphic interfaces
+               My passion for web development is fueled by my love of
+               problem-solving and the constant opportunity to learn and improve
+               my skills.
             </p>
          </div>
       </header>
