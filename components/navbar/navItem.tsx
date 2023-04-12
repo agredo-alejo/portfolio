@@ -6,6 +6,7 @@ function NavItem({ text, link }: { text: string; link: string }) {
       <Link
          href={link}
          shallow
+         replace
          className="flex items-center h-12 px-4 capitalize rounded hover:drop-shadow hover:bg-black/20"
       >
          {text}

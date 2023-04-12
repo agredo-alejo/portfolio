@@ -12,8 +12,6 @@ function Footer() {
       if (router.asPath !== "/contact") return;
 
       scrollIntoView(scrollRef);
-
-      router.replace("/", undefined, { shallow: true });
    }, [router]);
 
    return (

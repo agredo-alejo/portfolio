@@ -15,8 +15,6 @@ function Projects() {
       if (router.asPath !== "/projects") return;
 
       scrollIntoView(scrollRef);
-
-      router.replace("/", undefined, { shallow: true });
    }, [router]);
    return (
       <section

@@ -14,8 +14,6 @@ function Experiments() {
       if (router.asPath !== "/experiments") return;
 
       scrollIntoView(scrollRef);
-
-      router.replace("/", undefined, { shallow: true });
    }, [router]);
    return (
       <ExperimentsProvider>

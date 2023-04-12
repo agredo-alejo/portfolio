@@ -2,103 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 @layer components {
-  
-  .inputs {
-    display: flex;
-    width: 100%;
-    background: #777;
-    border: none;
-    color: white;
-    font-size: min(16px, 1rem);
-    outline: none;
-    padding: .5rem;
-    box-shadow: .1rem .1rem .1rem #454545;
-    margin-bottom: .2rem;
-  }
-  .inputs:hover {
-    box-shadow: 0 0 .2rem gray;
-  }
-  .inputs::placeholder {
-    opacity: .5;
-  }
-  .topTriangleClipPath{
-    clip-path: polygon(
-        0 0%,
-        50% 3rem,
-        100% 0,
-        100% 100%,
-        0 100%
-    );
-    -webkit-clip-path: polygon(
-        0 0%,
-        50% 3rem,
-        100% 0,
-        100% 100%,
-        0 100%
-    );
-  }
+   .inputs {
+      display: flex;
+      width: 100%;
+      background: #777;
+      border: none;
+      color: white;
+      font-size: min(16px, 1rem);
+      outline: none;
+      padding: 0.5rem;
+      box-shadow: 0.1rem 0.1rem 0.1rem #454545;
+      margin-bottom: 0.2rem;
+   }
+   .inputs:hover {
+      box-shadow: 0 0 0.2rem gray;
+   }
 
+   .topTriangleClipPath {
+      clip-path: polygon(0 0%, 50% 3rem, 100% 0, 100% 100%, 0 100%);
+      -webkit-clip-path: polygon(0 0%, 50% 3rem, 100% 0, 100% 100%, 0 100%);
+   }
 }
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    scrollbar-width: none;
-  height: 100%;
-  width: 100%;
+   padding: 0;
+   margin: 0;
+   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+   scrollbar-width: none;
+   height: 100%;
+   width: 100%;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+   color: inherit;
+   text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+   box-sizing: border-box;
 }
 
-html::-webkit-scrollbar,body::-webkit-scrollbar {
-  width: 0px;
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+   width: 0px;
 }
-.scrollbarHide{
-  scrollbar-width: none;
+.scrollbarHide {
+   scrollbar-width: none;
 }
-.scrollbarHide::-webkit-scrollbar{
-  width: 0px
+.scrollbarHide::-webkit-scrollbar {
+   width: 0px;
 }
-.customShadow{
-  box-shadow: -.01rem -.01rem .1rem #656565,
-              .1rem .1rem .1rem #454545;
+.customShadow {
+   box-shadow: -0.01rem -0.01rem 0.1rem #656565, 0.1rem 0.1rem 0.1rem #454545;
 }
-.customShadow:hover{
-  box-shadow: 0 0 .1rem #aaa;
+.customShadow:hover {
+   box-shadow: 0 0 0.1rem #aaa;
 }
-.hexagon{
-    clip-path: polygon(25% 5%,
-        75% 5%,
-        100% 50%,
-        75% 95%,
-        25% 95%,
-        0% 50%);
-    -webkit-clip-path: polygon(25% 5%,
-        75% 5%,
-        100% 50%,
-        75% 95%,
-        25% 95%,
-        0% 50%);
+.hexagon {
+   clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+   -webkit-clip-path: polygon(
+      25% 5%,
+      75% 5%,
+      100% 50%,
+      75% 95%,
+      25% 95%,
+      0% 50%
+   );
 }
-.modal{
-      position: fixed;
-      display: grid;
-      place-items: center;
-      place-content: center;
-      z-index: 1000;
-      background-color: #00000080;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-  }
+.modal {
+   position: fixed;
+   display: grid;
+   place-items: center;
+   place-content: center;
+   z-index: 1000;
+   background-color: #00000080;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+}
