@@ -27,11 +27,18 @@ The Node engine is pinned to `24.x`. Vercel uses this declaration on the next de
 | Background triangle behavior                       | `components/canvas/particle.ts`, `components/canvas/index.tsx`                 |
 | Palette, device geometry, spacing, glow and motion | `styles/globals.css`                                                           |
 | Professional links and work phone                  | `components/shared/contact.ts`                                                 |
+| Approved logo, reusable SVGs and browser icons      | `public/brand`, `components/navbar/navbar.tsx`, page `<Head>`                     |
 | Résumé PDF and paperclip destination               | `public/resume-alejandro-agredo-2026-11-18.pdf`, `components/shared/contact.ts`     |
 | Tech logos and official destinations               | `components/skills/skills.ts`                                                  |
 | Contact validation and length rules                | `features/contact/model.ts`                                                    |
 | Mail delivery provider                             | `server/contact/smtp.ts`, `composition.ts`                                     |
 | API method/origin, idempotency and rate limits     | `server/contact/handler.ts`, `limits.ts`                                       |
+
+### Brand assets
+
+The approved **Original Electric Blue** logo appears as the full wordmark on desktop and the symbol on phones. Its link returns to the introduction. The same symbol supplies the SVG favicon, multi-size ICO fallback and Apple touch icon. The full-screen introduction and existing motion remain unchanged.
+
+Reusable transparent SVGs live in `public/brand`: `alejandro-symbol-{blue,black,white}.svg` and `alejandro-wordmark-{blue,black,white}.svg`. Wordmark letters are outlines, so they do not depend on an installed font. See `public/brand/README.md` for the approved palette and usage. Keep blue geometry/gradients identical across the symbol and wordmark when revising assets, and regenerate the raster icons from the symbol.
 
 ### Résumé
 

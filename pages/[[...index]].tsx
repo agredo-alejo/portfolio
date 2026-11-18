@@ -30,7 +30,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="Alejandro Agredo" />
         <link rel="canonical" href="https://www.alejandroagredo.com/" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="/brand/favicon-electric-blue.ico" />
+        <link rel="icon" type="image/svg+xml" sizes="any" href="/brand/alejandro-symbol-blue.svg" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/brand/apple-touch-icon.png" />
         <meta property="og:title" content="Alejandro Agredo | Web Developer" />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
