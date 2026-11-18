@@ -4,5 +4,5 @@ export const professionalContact = {
   phoneDisplay: "(786) 496-3019",
   linkedin: "https://www.linkedin.com/in/alejandro-agredo-portilla/",
   github: "https://github.com/agredo-alejo",
-  resume: "/resume-alejandro-agredo.pdf",
+  resume: "/resume-alejandro-agredo-2026-11-18.pdf",
 } as const;

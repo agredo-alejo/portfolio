@@ -263,6 +263,20 @@ test("professional icons and tech logos keep real destinations and hover shine",
   await expect(
     page.locator(".contact-footer").getByRole("link", { name: "Call Alejandro", exact: true }),
   ).toHaveAttribute("href", "tel:+17864963019");
+  const resume = page.locator(".intro").getByRole("link", { name: "Open résumé PDF" });
+  await expect(resume).toHaveAttribute("target", "_blank");
+  await expect(resume).toHaveAttribute("rel", "noopener noreferrer");
+  const resumePath = await resume.getAttribute("href");
+  expect(resumePath).toBeTruthy();
+  await expect(page.locator(".contact-footer").getByRole("link", { name: "Open résumé PDF" })).toHaveAttribute("href", resumePath!);
+  const pdf = await page.request.get(resumePath!);
+  expect(pdf.status()).toBe(200);
+  expect(pdf.headers()["content-type"]).toContain("application/pdf");
+  const bytes = await pdf.body();
+  expect(bytes.subarray(0, 5).toString()).toBe("%PDF-");
+  // Older direct links should deliver the same current document.
+  const previousAddress = await page.request.get("/resume-alejandro-agredo.pdf");
+  expect((await previousAddress.body()).equals(bytes)).toBe(true);
 });
 test("contact sends through local SMTP and shows success only after acceptance", async ({
   page,

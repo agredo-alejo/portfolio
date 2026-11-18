@@ -27,10 +27,15 @@ The Node engine is pinned to `24.x`. Vercel uses this declaration on the next de
 | Background triangle behavior                       | `components/canvas/particle.ts`, `components/canvas/index.tsx`                 |
 | Palette, device geometry, spacing, glow and motion | `styles/globals.css`                                                           |
 | Professional links and work phone                  | `components/shared/contact.ts`                                                 |
+| Résumé PDF and paperclip destination               | `public/resume-alejandro-agredo-2026-11-18.pdf`, `components/shared/contact.ts`     |
 | Tech logos and official destinations               | `components/skills/skills.ts`                                                  |
 | Contact validation and length rules                | `features/contact/model.ts`                                                    |
 | Mail delivery provider                             | `server/contact/smtp.ts`, `composition.ts`                                     |
 | API method/origin, idempotency and rate limits     | `server/contact/handler.ts`, `limits.ts`                                       |
+
+### Résumé
+
+The paperclip icons in the introduction and footer open the approved PDF in a new tab, where the browser provides its download controls. For a revision, add a dated PDF filename and update `professionalContact.resume` so cached copies do not hide the update. Also replace `public/resume-alejandro-agredo.pdf` with the same bytes to preserve older direct links. The current two-page export was approved on November 18, 2026.
 
 ### Projects
 
