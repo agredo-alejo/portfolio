@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import type { ProjectPreview } from "./model";
 import Icon from "../shared/Icon";
+import PhoneCapture from "./PhoneCapture";
 export default function ImageDialog({
   preview,
   onClose,
@@ -57,14 +58,22 @@ export default function ImageDialog({
               <Icon name="close" />
             </button>
           </div>
-          <Image
-            className={"expanded-project-image expanded-" + preview.device}
-            src={preview.image}
-            alt={preview.title + " " + preview.device + " website capture"}
-            width={preview.device === "phone" ? 390 : 1280}
-            height={preview.device === "phone" ? 844 : 800}
-            unoptimized
-          />
+          {preview.device === "phone" ? (
+            <PhoneCapture
+              src={preview.image}
+              alt={preview.title + " phone website capture"}
+              expanded
+            />
+          ) : (
+            <Image
+              className={"expanded-project-image expanded-" + preview.device}
+              src={preview.image}
+              alt={preview.title + " " + preview.device + " website capture"}
+              width={1280}
+              height={800}
+              unoptimized
+            />
+          )}
         </div>
       )}
     </dialog>

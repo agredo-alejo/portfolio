@@ -17,20 +17,20 @@ The Node engine is pinned to `24.x`. Vercel uses this declaration on the next de
 
 ## Frequent changes
 
-| Change                                             | Start here                                                          |
-| -------------------------------------------------- | ------------------------------------------------------------------- |
-| Add/update a website or app                        | `components/projects/projectsList.ts`                               |
-| Laptop, phone, modal presentation                  | `components/projects/DeviceMockups.tsx`, `ImageDialog.tsx`          |
-| Add an experiment or category                      | `components/experiments/catalog.ts`                                 |
-| Inline play/pause/reset and visibility             | `components/experiments/ExperimentPlayer.tsx`                       |
-| Original experiment source                         | `public/particle`, `public/math`, `public/render`, `public/genetic` |
-| Background triangle behavior                       | `components/canvas/particle.ts`, `components/canvas/index.tsx`      |
-| Palette, device geometry, spacing, glow and motion | `styles/globals.css`                                                |
-| Professional links and work phone                  | `components/shared/contact.ts`                                      |
-| Tech logos and official destinations               | `components/skills/skills.ts`                                       |
-| Contact validation and length rules                | `features/contact/model.ts`                                         |
-| Mail delivery provider                             | `server/contact/smtp.ts`, `composition.ts`                          |
-| API method/origin, idempotency and rate limits     | `server/contact/handler.ts`, `limits.ts`                            |
+| Change                                             | Start here                                                                     |
+| -------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Add/update a website or app                        | `components/projects/projectsList.ts`                                          |
+| Laptop, overlapping phone, capture crop and modal  | `components/projects/DeviceMockups.tsx`, `PhoneCapture.tsx`, `ImageDialog.tsx` |
+| Add an experiment or category                      | `components/experiments/catalog.ts`                                            |
+| Inline autoplay, visibility and reduced motion     | `components/experiments/ExperimentPlayer.tsx`                                  |
+| Original experiment source                         | `public/particle`, `public/math`, `public/render`, `public/genetic`            |
+| Background triangle behavior                       | `components/canvas/particle.ts`, `components/canvas/index.tsx`                 |
+| Palette, device geometry, spacing, glow and motion | `styles/globals.css`                                                           |
+| Professional links and work phone                  | `components/shared/contact.ts`                                                 |
+| Tech logos and official destinations               | `components/skills/skills.ts`                                                  |
+| Contact validation and length rules                | `features/contact/model.ts`                                                    |
+| Mail delivery provider                             | `server/contact/smtp.ts`, `composition.ts`                                     |
+| API method/origin, idempotency and rate limits     | `server/contact/handler.ts`, `limits.ts`                                       |
 
 ### Projects
 
@@ -44,7 +44,7 @@ Add an entry to an existing category, or add a new category, in `catalog.ts`. Se
 npm run prepare:experiments
 ```
 
-Development/build runs this automatically. The script validates IDs and paths, preserves the original sources and generates isolated `public/experiments/runtime` players with a small animation-control bridge. Only the selected experiment loads after Play; it pauses outside the viewport and while the document is hidden. Selection starts paused, including with reduced motion. Arrow keys, Home and End operate category tabs. All twelve curated original experiments were included; this is not a claim that every historical entry in the separate prácticas archive works.
+Development/build runs this automatically. The script validates IDs and paths, preserves the original sources and generates isolated `public/experiments/runtime` players with a small animation-control bridge. The selected experiment loads and plays automatically when visible, then pauses outside the viewport and while the document is hidden. There are no playback/restart buttons. Reduced-motion mode shows its static preview. Arrow keys, Home and End operate category tabs. The twelve entries and source bundles are the same selection as the original portfolio; two copied titles in the old catalog were corrected to match their actual source. This is not a claim that every historical entry in the separate prácticas archive works.
 
 ## Server email: reuse the existing Gmail account
 

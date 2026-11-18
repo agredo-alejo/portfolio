@@ -279,11 +279,8 @@ textarea:focus-visible {
   margin-top: 14px;
 }
 .device-pair {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 25%;
-  gap: 3%;
-  align-items: end;
-  padding: 12px 0 10px;
+  position: relative;
+  padding: 12px 10% 42px 0;
   min-width: 0;
 }
 .laptop-mockup,
@@ -297,6 +294,9 @@ textarea:focus-visible {
   transition:
     filter var(--motion-fast),
     transform var(--motion-fast);
+}
+.laptop-mockup {
+  width: 100%;
 }
 .laptop-mockup:hover,
 .phone-mockup:hover {
@@ -349,7 +349,11 @@ textarea:focus-visible {
   clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
 }
 .phone-mockup {
-  margin-bottom: 4px;
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  width: 24%;
 }
 .phone-display {
   display: block;
@@ -360,13 +364,19 @@ textarea:focus-visible {
   border-radius: 15px;
   box-shadow: 3px 7px 15px #0005;
 }
-.phone-display > img {
+.phone-capture {
   display: block;
-  aspect-ratio: 390/844;
-  width: 100%;
+  /* Clip only the rightmost 4% containing captured browser scrollbar chrome. */
+  aspect-ratio: 374.4/844;
+  overflow: hidden;
+}
+.phone-capture > img {
+  display: block;
+  width: calc(100% / 0.96);
+  max-width: none;
   height: auto;
-  object-fit: cover;
-  object-position: top;
+}
+.phone-display > .phone-capture {
   border-radius: 10px;
 }
 .phone-camera {
@@ -423,8 +433,9 @@ textarea:focus-visible {
   object-fit: contain;
   margin: auto;
 }
-.expanded-phone {
-  max-height: calc(100svh - 105px);
+.expanded-phone-capture {
+  width: min(calc((100svh - 105px) * 374.4 / 844), calc(100vw - 42px));
+  margin: auto;
 }
 .experiments-section {
   padding-top: 48px;
@@ -498,37 +509,6 @@ textarea:focus-visible {
 }
 .experiment-poster {
   object-fit: contain;
-}
-.player-start {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  border: 1px solid #8c8c8c;
-  border-radius: 4px;
-  background: #292929f2;
-  color: var(--text);
-  font-size: 14px;
-  white-space: nowrap;
-}
-.player-controls {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 6px 9px 0;
-}
-.player-controls .icon-button:hover {
-  background: #444;
-}
-.player-controls > span {
-  font-size: 11px;
-  color: var(--muted);
-  margin-left: auto;
-  margin-right: 8px;
 }
 .experiment-description {
   padding: 8px 15px 15px;
@@ -818,9 +798,7 @@ textarea:focus-visible {
     font-size: 14px;
   }
   .device-pair {
-    padding-inline: 4px;
-    grid-template-columns: minmax(0, 1fr) 25%;
-    gap: 3%;
+    padding: 12px 10% 32px 4px;
   }
   .laptop-display {
     padding: 8px 4px 5px;
@@ -835,7 +813,7 @@ textarea:focus-visible {
     padding: 4px 3px;
     border-radius: 12px;
   }
-  .phone-display > img {
+  .phone-display > .phone-capture {
     border-radius: 8px;
   }
   .phone-camera {
@@ -855,9 +833,6 @@ textarea:focus-visible {
   }
   .expanded-project-image {
     max-width: calc(100vw - 22px);
-  }
-  .expanded-phone {
-    max-height: calc(100svh - 100px);
   }
   .icon-link,
   .icon-button {

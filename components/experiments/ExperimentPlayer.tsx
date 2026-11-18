@@ -1,45 +1,49 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import type { Experiment } from "./catalog";
-import Icon from "../shared/Icon";
+import { useReducedMotion } from "../shared/useReducedMotion";
+
 export default function ExperimentPlayer({
   experiment,
 }: {
   experiment: Experiment;
 }) {
-  const frame = useRef<HTMLIFrameElement>(null),
-    container = useRef<HTMLDivElement>(null);
-  const [loaded, setLoaded] = useState(false),
-    [playing, setPlaying] = useState(false),
-    [ready, setReady] = useState(false),
-    [failed, setFailed] = useState(false),
-    [revision, setRevision] = useState(0);
-  const visible = useRef(false);
-  const send = useCallback(
-    (active: boolean) =>
-      frame.current?.contentWindow?.postMessage(
-        { type: "portfolio-player", action: active ? "play" : "pause" },
-        "*",
-      ),
-    [],
-  );
+  const frame = useRef<HTMLIFrameElement>(null);
+  const container = useRef<HTMLDivElement>(null);
+  const [entered, setEntered] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [revision, setRevision] = useState(0);
+  const reducedMotion = useReducedMotion();
+  const loaded = entered && !reducedMotion;
+  const active = visible && !hidden && !reducedMotion && !failed;
+  const send = useCallback((running: boolean) => {
+    frame.current?.contentWindow?.postMessage(
+      { type: "portfolio-player", action: running ? "play" : "pause" },
+      "*",
+    );
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        visible.current = entries[0].isIntersecting;
-        send(visible.current && playing && !document.hidden);
+      ([entry]) => {
+        setVisible(entry.isIntersecting);
+        if (entry.isIntersecting) setEntered(true);
       },
       { threshold: 0.1 },
     );
     if (container.current) observer.observe(container.current);
-    const onVisibility = () =>
-      send(playing && visible.current && !document.hidden);
+    const onVisibility = () => setHidden(document.hidden);
+    onVisibility();
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
       observer.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, [playing, send]);
+  }, []);
+
   useEffect(() => {
     function message(event: MessageEvent<unknown>) {
       if (
@@ -51,35 +55,28 @@ export default function ExperimentPlayer({
         return;
       if (event.data.type === "portfolio-player-ready") {
         setReady(true);
-        send(playing && visible.current && !document.hidden);
+        send(active);
       }
       if (event.data.type === "portfolio-player-error") {
         setFailed(true);
-        setPlaying(false);
         send(false);
       }
     }
     window.addEventListener("message", message);
+    send(active);
     return () => window.removeEventListener("message", message);
-  }, [playing, send]);
+  }, [active, send, revision]);
+
   useEffect(() => {
     if (!loaded || ready || failed) return;
     const timer = window.setTimeout(() => {
       setFailed(true);
-      setPlaying(false);
+      send(false);
     }, 10000);
     return () => window.clearTimeout(timer);
-  }, [loaded, ready, failed, revision]);
-  function play() {
-    if (!loaded) {
-      setLoaded(true);
-      setPlaying(true);
-    } else {
-      setPlaying(!playing);
-      send(!playing && visible.current && !document.hidden);
-    }
-  }
-  function reset() {
+  }, [loaded, ready, failed, revision, send]);
+
+  function retry() {
     setFailed(false);
     setReady(false);
     setRevision((value) => value + 1);
@@ -93,32 +90,28 @@ export default function ExperimentPlayer({
       <div className="player-header">
         <h3>{experiment.title}</h3>
         <span role="status">
-          {failed
-            ? "Unavailable"
-            : !loaded
-              ? "Ready to play"
-              : !ready
-                ? "Loading…"
-                : playing
-                  ? "Playing here"
-                  : "Paused"}
+          {reducedMotion
+            ? "Reduced motion"
+            : failed
+              ? "Unavailable"
+              : !loaded
+                ? "Plays in view"
+                : !ready
+                  ? "Loading…"
+                  : active
+                    ? "Playing here"
+                    : "Paused offscreen"}
         </span>
       </div>
       <div className="experiment-stage">
         {!loaded && (
-          <>
-            <Image
-              src={experiment.preview}
-              alt={experiment.title + " preview"}
-              fill
-              sizes="(max-width: 760px) 88vw, 65vw"
-              className="experiment-poster"
-            />
-            <button className="player-start" type="button" onClick={play}>
-              <Icon name="play" />
-              <span>Play experiment</span>
-            </button>
-          </>
+          <Image
+            src={experiment.preview}
+            alt={experiment.title + " preview"}
+            fill
+            sizes="(max-width: 760px) 88vw, 65vw"
+            className="experiment-poster"
+          />
         )}
         {loaded && !failed && (
           <iframe
@@ -132,34 +125,11 @@ export default function ExperimentPlayer({
         {failed && (
           <div className="experiment-failure">
             <p>This experiment could not start.</p>
-            <button className="text-button" type="button" onClick={reset}>
+            <button className="text-button" type="button" onClick={retry}>
               Try again
             </button>
           </div>
         )}
-      </div>
-      <div className="player-controls">
-        <button
-          className="icon-button"
-          type="button"
-          onClick={play}
-          disabled={failed}
-          aria-label={(playing ? "Pause " : "Play ") + experiment.title}
-          title={playing ? "Pause" : "Play"}
-        >
-          <Icon name={playing ? "pause" : "play"} />
-        </button>
-        <button
-          className="icon-button"
-          type="button"
-          onClick={reset}
-          disabled={!loaded}
-          aria-label={"Reset " + experiment.title}
-          title="Reset"
-        >
-          <Icon name="reset" />
-        </button>
-        <span>Runs on this page</span>
       </div>
       <p className="experiment-description">{experiment.description}</p>
     </div>

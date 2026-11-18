@@ -18,14 +18,14 @@ export const experimentCategories = [
     experiments: [
       {
         id: "circular",
-        title: "Circular motion",
+        title: "Circular",
         description: "Particle motion drawn with trigonometry.",
         preview: "/particle/circular/circular.png",
         source: "/particle/circular/index.html",
       },
       {
         id: "boids",
-        title: "Flocking",
+        title: "Boids",
         description:
           "Simple steering rules create collective behavior. Move your pointer inside the stage.",
         preview: "/particle/boids/boids.png",
@@ -53,7 +53,7 @@ export const experimentCategories = [
     experiments: [
       {
         id: "tesseract",
-        title: "A window into 4D",
+        title: "Tesseract",
         description:
           "A rotating four-dimensional cube projected onto a canvas.",
         preview: "/render/tesseract/tesseract.png",
@@ -95,7 +95,7 @@ export const experimentCategories = [
       },
       {
         id: "evolving-agents",
-        title: "Evolving agents",
+        title: "Visualize health",
         description:
           "An early experiment in selection and a changing population.",
         preview: "/genetic/GA_VisualizeHealth/GA_VisualizeHealth.png",
@@ -103,14 +103,14 @@ export const experimentCategories = [
       },
       {
         id: "learning-to-fly",
-        title: "Learning to fly",
+        title: "NEAT Flappy Bird",
         description: "Neuroevolution in a small flying-agent environment.",
         preview: "/genetic/NEAT_FlappyBird/NEAT_FlappyBird.png",
         source: "/genetic/NEAT_FlappyBird/index.html",
       },
       {
         id: "relationships",
-        title: "Agent relationships",
+        title: "Visualize relationships",
         description: "Exploring interactions in an evolving system.",
         preview:
           "/genetic/GA_VisualizeRelationship/GA_VisualizeRelationship.png",

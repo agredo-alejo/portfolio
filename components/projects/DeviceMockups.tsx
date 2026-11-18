@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { PortfolioProject, ProjectPreview } from "./model";
+import PhoneCapture from "./PhoneCapture";
 export default function DeviceMockups({
   project,
   onPreview,
@@ -49,12 +50,9 @@ export default function DeviceMockups({
       >
         <span className="phone-display">
           <span className="phone-camera" />
-          <Image
+          <PhoneCapture
             src={project.phone}
             alt={project.title + " on a phone"}
-            width={390}
-            height={844}
-            sizes="(max-width: 680px) 24vw, 12vw"
           />
         </span>
       </button>

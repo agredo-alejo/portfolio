@@ -65,6 +65,11 @@ test("preserves the first screen and replaces the project selection", async ({
   await page.screenshot({
     path: "artifacts/qa/" + info.project.name + "-projects.png",
   });
+  const laptop = await page.locator(".laptop-mockup").first().boundingBox();
+  const phone = await page.locator(".phone-mockup").first().boundingBox();
+  expect(phone!.x).toBeLessThan(laptop!.x + laptop!.width);
+  expect(phone!.y).toBeGreaterThan(laptop!.y);
+  expect(phone!.y + phone!.height).toBeGreaterThan(laptop!.y + laptop!.height);
 });
 test("desktop and phone images open a focused modal and restore keyboard focus", async ({
   page,
@@ -105,48 +110,44 @@ test("desktop and phone images open a focused modal and restore keyboard focus",
     await page.locator("body").evaluate((element) => element.style.overflow),
   ).toBe("");
 });
-test("all categories and original experiments work inline", async ({
+test("all original experiments autoplay inline without playback buttons", async ({
   page,
 }, info) => {
   test.skip(
     info.project.name !== "desktop",
-    "Run the complete archive once; mobile checks the same player separately.",
+    "Run the full archive once; phone covers autoplay separately.",
   );
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
-  await page.goto("/#experiments");
+  await page.goto("/");
+  await expect(page.locator(".experiment-stage iframe")).toHaveCount(0);
+  await page.getByRole("link", { name: "Experiments", exact: true }).click();
   for (const category of experimentCategories) {
-    await page
-      .getByRole("tab", { name: new RegExp(category.title.replace("&", "&")) })
-      .click();
+    await page.getByRole("tab", { name: new RegExp(category.title) }).click();
     for (const experiment of category.experiments) {
       await page
         .getByRole("button", { name: experiment.title, exact: true })
         .click();
-      await page
-        .getByRole("button", { name: "Play " + experiment.title, exact: true })
-        .click();
       await expect(page.locator(".player-header")).toContainText(
         "Playing here",
       );
-      const frame = page.frameLocator(".experiment-stage iframe");
-      await expect(frame.locator("canvas")).toBeVisible();
-      await expect(page.locator(".player-header")).not.toContainText(
-        "Unavailable",
+      await expect(page.locator(".experiment-stage iframe")).toHaveCount(1);
+      await expect(page.locator(".experiment-stage iframe")).toHaveAttribute(
+        "src",
+        "/experiments/runtime/" + experiment.id + ".html",
       );
-      await page
-        .getByRole("button", { name: "Pause " + experiment.title, exact: true })
-        .click();
-      await expect(page.locator(".player-header")).toContainText("Paused");
-      await page
-        .getByRole("button", { name: "Reset " + experiment.title, exact: true })
-        .click();
-      await expect(page.locator(".player-header")).toContainText("Paused");
+      await expect(
+        page.frameLocator(".experiment-stage iframe").locator("canvas"),
+      ).toBeVisible();
     }
   }
+  await expect(page.locator(".player-controls, .player-start")).toHaveCount(0);
+  await expect(
+    page.locator('#experiments').getByRole("button", { name: /^(Play|Pause|Reset) / }),
+  ).toHaveCount(0);
   expect(errors).toEqual([]);
 });
-test("tabs support keyboard navigation and the player respects reduced motion", async ({
+test("tabs preserve keyboard navigation, reduced motion and automatic playback", async ({
   page,
 }, info) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
@@ -157,22 +158,54 @@ test("tabs support keyboard navigation and the player respects reduced motion", 
   await expect(
     page.getByRole("tab", { name: /Graphics & geometry/ }),
   ).toHaveAttribute("aria-selected", "true");
+  await page.getByRole("button", { name: "Tesseract", exact: true }).click();
+  await expect(page.locator(".player-header")).toContainText("Reduced motion");
   await expect(page.locator(".experiment-stage iframe")).toHaveCount(0);
-  await page
-    .getByRole("button", { name: "A window into 4D", exact: true })
-    .click();
-  await expect(page.locator(".experiment-stage iframe")).toHaveCount(0);
-  await page
-    .getByRole("button", { name: "Play A window into 4D", exact: true })
-    .click();
+  await expect(page.locator(".experiment-poster")).toBeVisible();
+  await page.emulateMedia({ reducedMotion: "no-preference" });
   await expect(page.locator(".player-header")).toContainText("Playing here");
-  await page
-    .getByRole("button", { name: "Pause A window into 4D", exact: true })
-    .click();
-  await expect(page.locator(".player-header")).toContainText("Paused");
+  const canvas = page
+    .frameLocator(".experiment-stage iframe")
+    .locator("canvas");
+  const initial = await canvas.evaluate((element) =>
+    (element as HTMLCanvasElement).toDataURL(),
+  );
+  await expect
+    .poll(() =>
+      canvas.evaluate((element) => (element as HTMLCanvasElement).toDataURL()),
+    )
+    .not.toBe(initial);
   await page.screenshot({
     path: "artifacts/qa/" + info.project.name + "-experiments.png",
   });
+  await page.locator(".intro").scrollIntoViewIfNeeded();
+  await expect(page.locator(".player-header")).toContainText(
+    "Paused offscreen",
+  );
+  await expect
+    .poll(async () => {
+      const before = await canvas.evaluate((element) =>
+        (element as HTMLCanvasElement).toDataURL(),
+      );
+      await new Promise((resolve) => setTimeout(resolve, 150));
+      return (
+        before ===
+        (await canvas.evaluate((element) =>
+          (element as HTMLCanvasElement).toDataURL(),
+        ))
+      );
+    })
+    .toBe(true);
+  await page.getByRole("link", { name: "Experiments", exact: true }).click();
+  await expect(page.locator(".player-header")).toContainText("Playing here");
+  const resumed = await canvas.evaluate((element) =>
+    (element as HTMLCanvasElement).toDataURL(),
+  );
+  await expect
+    .poll(() =>
+      canvas.evaluate((element) => (element as HTMLCanvasElement).toDataURL()),
+    )
+    .not.toBe(resumed);
 });
 test("professional icons and tech logos keep real destinations and hover shine", async ({
   page,
