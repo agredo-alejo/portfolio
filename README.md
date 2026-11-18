@@ -36,7 +36,7 @@ The Node engine is pinned to `24.x`. Vercel uses this declaration on the next de
 
 ### Brand assets
 
-The approved **Original Electric Blue** logo appears as the full wordmark on desktop and the symbol on phones. Its link returns to the introduction. The same symbol supplies the SVG favicon, multi-size ICO fallback and Apple touch icon. The full-screen introduction and existing motion remain unchanged.
+The website uses only the **grayscale symbol**, at all screen sizes, as requested. Its link returns to the introduction. The same grayscale symbol supplies the SVG favicon, multi-size ICO fallback and Apple touch icon. The full-screen introduction and existing motion remain unchanged. The approved **Original Electric Blue** version remains a reusable brand master for other materials.
 
 Reusable transparent SVGs live in `public/brand`: `alejandro-symbol-{blue,black,white}.svg` and `alejandro-wordmark-{blue,black,white}.svg`. Wordmark letters are outlines, so they do not depend on an installed font. See `public/brand/README.md` for the approved palette and usage. Keep blue geometry/gradients identical across the symbol and wordmark when revising assets, and regenerate the raster icons from the symbol.
 
