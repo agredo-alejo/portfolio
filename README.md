@@ -28,7 +28,7 @@ The Node engine is pinned to `24.x`. Vercel uses this declaration on the next de
 | Palette, device geometry, spacing, glow and motion | `styles/globals.css`                                                           |
 | Professional links and work phone                  | `components/shared/contact.ts`                                                 |
 | Approved logo, reusable SVGs and browser icons      | `public/brand`, `components/navbar/navbar.tsx`, page `<Head>`                     |
-| Résumé PDF and paperclip destination               | `public/resume-alejandro-agredo-2026-11-18.pdf`, `components/shared/contact.ts`     |
+| Résumé PDF and paperclip destination               | `public/resume-alejandro-agredo-2026-11-18-work.pdf`, `components/shared/contact.ts` |
 | Tech logos and official destinations               | `components/skills/skills.ts`                                                  |
 | Contact validation and length rules                | `features/contact/model.ts`                                                    |
 | Mail delivery provider                             | `server/contact/smtp.ts`, `composition.ts`                                     |
@@ -60,7 +60,9 @@ Development/build runs this automatically. The script validates IDs and paths, p
 
 ## Server email: reuse the existing Gmail account
 
-The form posts only to `/api/send_email`; Nodemailer sends from the server to **agredoalejo@gmail.com**, with the visitor's validated email as Reply-To. There is no browser EmailJS integration, third-party email signup, or database requirement.
+The public contact address is **info@alejandroagredo.com**, centralized in `features/contact/addresses.ts`. The form posts only to `/api/send_email`; Nodemailer sends from the server through the configured sending account to that alias, with the visitor's validated email as Reply-To. `CONTACT_SENDER` and `CONTACT_RECIPIENT` can override the addresses on the server. SMTP authentication remains separate from the visible From address; the account must be authorized to send as the alias. Personal email addresses and mail credentials must not appear in public source, browser bundles or downloadable files. The résumé has a separate approved work-inbox address. There is no browser EmailJS integration or database requirement.
+
+For work-account Gmail SMTP, set `CONTACT_MAIL_TRANSPORT=smtp`, `SMTP_HOST=smtp.gmail.com`, `SMTP_PORT=465`, `SMTP_SECURE=true`, and set `SMTP_USER`/`SMTP_TRANSPORT_USER` to the work sending account. Save its app password only in the server secret manager as `SMTP_PASSWORD`. The explicit SMTP mode ignores legacy OAuth values. Complete alias verification in Gmail and activate the domain's forwarding/DNS records before verifying real mail or publishing the new configuration. Free forwarding alone does not provide outbound SMTP. Gmail's third-party Send As support has an announced January 2027 end date; see [Google's current guidance](https://support.google.com/mail/answer/17101213?hl=en).
 
 Keep the existing Vercel Gmail values as **server-only environment variables**:
 

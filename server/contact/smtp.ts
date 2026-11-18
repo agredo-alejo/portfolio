@@ -1,14 +1,16 @@
 import nodemailer from "nodemailer";
 import type SMTPTransport from "nodemailer/lib/smtp-transport";
-import { CONTACT_RECIPIENT } from "../../features/contact/model";
+import { PUBLIC_CONTACT_EMAIL } from "../../features/contact/addresses";
 import type { MailDelivery } from "./contracts";
 const emailPattern = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
 export function createSmtpDelivery(
   env: NodeJS.ProcessEnv = process.env,
 ): MailDelivery & { verify(): Promise<true> } {
-  const user = env.SMTP_TRANSPORT_USER || env.SMTP_USER || CONTACT_RECIPIENT;
-  if (!emailPattern.test(user))
-    throw new Error("Invalid mail sender configuration");
+  const user = env.SMTP_TRANSPORT_USER || env.SMTP_USER;
+  const sender = env.CONTACT_SENDER || PUBLIC_CONTACT_EMAIL;
+  const recipient = env.CONTACT_RECIPIENT || PUBLIC_CONTACT_EMAIL;
+  if (!user || ![user, sender, recipient].every(address => emailPattern.test(address)))
+    throw new Error("Invalid mail address configuration");
   let options: SMTPTransport.Options;
   if (env.CONTACT_MAIL_TRANSPORT === "smtp") {
     const host = env.SMTP_HOST;
@@ -60,8 +62,8 @@ export function createSmtpDelivery(
     verify: () => transport.verify(),
     async send(message) {
       const result = await transport.sendMail({
-        from: { name: "Alejandro Agredo Portfolio", address: user },
-        to: CONTACT_RECIPIENT,
+        from: { name: "Alejandro Agredo Portfolio", address: sender },
+        to: recipient,
         replyTo: message.email,
         subject: "Portfolio message from " + message.name,
         text:

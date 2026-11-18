@@ -304,7 +304,8 @@ test("contact sends through local SMTP and shows success only after acceptance",
   const response = await request.get("http://127.0.0.1:3151/messages");
   const messages = await response.json();
   expect(messages).toHaveLength(1);
-  expect(messages[0].to[0].address).toBe("agredoalejo@gmail.com");
+  expect(messages[0].to[0].address).toBe("info@alejandroagredo.com");
+  expect(messages[0].content).toContain("<info@alejandroagredo.com>");
   expect(messages[0].content).toContain("Reply-To: sender@example.test");
 });
 test("failed delivery preserves the message and provides a direct email link", async ({
@@ -332,7 +333,7 @@ test("failed delivery preserves the message and provides a direct email link", a
   );
   await expect(
     page.getByRole("link", { name: "Email me directly" }),
-  ).toHaveAttribute("href", "mailto:agredoalejo@gmail.com");
+  ).toHaveAttribute("href", "mailto:info@alejandroagredo.com");
 });
 test("small phone layout has no horizontal overflow", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 740 });

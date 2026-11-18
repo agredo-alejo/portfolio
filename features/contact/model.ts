@@ -4,7 +4,6 @@ export const CONTACT_LIMITS = {
   message: 5000,
   minimumMessage: 10,
 } as const;
-export const CONTACT_RECIPIENT = "agredoalejo@gmail.com";
 export type ContactField = "name" | "email" | "message";
 export interface ContactMessage {
   name: string;
