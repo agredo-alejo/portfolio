@@ -38,9 +38,7 @@ export default function Experiments() {
       aria-labelledby="experiments-heading"
     >
       <div className="section-heading">
-        <span className="eyebrow">Curiosity, in code</span>
         <h2 id="experiments-heading">Experiments</h2>
-        <p>Play with an idea, right here.</p>
       </div>
       <div
         className="experiment-tabs"
@@ -60,7 +58,6 @@ export default function Experiments() {
             onClick={() => setCategoryId(item.id)}
           >
             {item.title}
-            <span>{item.experiments.length}</span>
           </button>
         ))}
       </div>
@@ -99,11 +96,6 @@ export default function Experiments() {
               <span>{item.title}</span>
             </button>
           ))}
-          <p>
-            Original JavaScript experiments.
-            <br />
-            One idea at a time.
-          </p>
         </div>
       </div>
     </section>

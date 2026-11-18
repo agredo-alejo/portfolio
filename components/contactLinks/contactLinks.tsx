@@ -16,6 +16,9 @@ export default function ContactLinks() {
       <ContactLink link={contact.resume} label="Open résumé PDF">
         <Icon name="resume" />
       </ContactLink>
+      <ContactLink link={"tel:" + contact.phone} label="Call Alejandro">
+        <Icon name="phone" />
+      </ContactLink>
     </div>
   );
 }

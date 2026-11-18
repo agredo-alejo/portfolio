@@ -11,8 +11,8 @@ export default function ContactLink({
   return (
     <a
       href={link}
-      target="_blank"
-      rel="noopener noreferrer"
+      target={link.startsWith("https:") || link.endsWith(".pdf") ? "_blank" : undefined}
+      rel={link.startsWith("https:") || link.endsWith(".pdf") ? "noopener noreferrer" : undefined}
       className="icon-link"
       aria-label={label}
       title={label}

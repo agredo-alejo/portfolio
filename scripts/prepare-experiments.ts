@@ -4,7 +4,49 @@ import { allExperiments } from "../components/experiments/catalog";
 const publicRoot = path.resolve("public");
 const output = path.join(publicRoot, "experiments/runtime");
 await mkdir(output, { recursive: true });
-const bridge = `(()=>{const raf=window.requestAnimationFrame.bind(window);let running=false,id=0;const queue=new Map();function schedule(key){if(!running)return;raf(time=>{if(!running||!queue.has(key))return;const callback=queue.get(key);queue.delete(key);callback(time);});}window.requestAnimationFrame=callback=>{const key=++id;queue.set(key,callback);schedule(key);return key;};window.cancelAnimationFrame=key=>queue.delete(key);window.addEventListener('message',event=>{if(event.source!==parent||event.data?.type!=='portfolio-player')return;const next=event.data.action==='play';if(next===running)return;running=next;if(running)for(const key of queue.keys())schedule(key);});window.addEventListener('load',()=>parent.postMessage({type:'portfolio-player-ready'},'*'));window.addEventListener('error',()=>parent.postMessage({type:'portfolio-player-error'},'*'));})();`;
+// Players mount in view. Wait for original setup to finish, then autoplay independently
+// of message timing; the parent can still pause a player that loaded offscreen.
+const bridge = `(() => {
+  const nativeFrame = window.requestAnimationFrame.bind(window);
+  const pending = new Map();
+  let loaded = false, requested = true, running = false, sequence = 0;
+  function schedule(id) {
+    if (!running) return;
+    nativeFrame(time => {
+      if (!running || !pending.has(id)) return;
+      const callback = pending.get(id);
+      pending.delete(id);
+      callback(time);
+    });
+  }
+  function synchronize() {
+    const next = loaded && requested;
+    if (next === running) return;
+    running = next;
+    if (running) for (const id of pending.keys()) schedule(id);
+  }
+  window.requestAnimationFrame = callback => {
+    const id = ++sequence;
+    pending.set(id, callback);
+    schedule(id);
+    return id;
+  };
+  window.cancelAnimationFrame = id => pending.delete(id);
+  window.addEventListener('message', event => {
+    if (event.source !== parent || event.data?.type !== 'portfolio-player') return;
+    requested = event.data.action === 'play';
+    synchronize();
+  });
+  window.addEventListener('load', () => {
+    nativeFrame(() => {
+      window.dispatchEvent(new Event('resize'));
+      loaded = true;
+      synchronize();
+      parent.postMessage({type: 'portfolio-player-ready'}, '*');
+    });
+  });
+  window.addEventListener('error', () => parent.postMessage({type: 'portfolio-player-error'}, '*'));
+})();`;
 function resolvePublic(file: string) {
   const resolved = path.resolve(publicRoot, file.replace(/^\//, ""));
   if (!resolved.startsWith(publicRoot + path.sep))
@@ -36,6 +78,13 @@ for (const experiment of allExperiments) {
       /const (\w+)=function\(\)\{[\s\S]*?modulepreload[\s\S]*?\};\1\(\);/,
       "",
     );
+    // The archived boids bundle resizes its canvas but leaves its spatial grid
+    // at the old viewport size. Rebuild that grid when the inline frame resizes.
+    if (experiment.id === "boids") {
+      if (!javascript.includes("Ft(O);"))
+        throw new Error("Boids resize adapter no longer matches the archive");
+      javascript = javascript.replace("Ft(O);", "Ft(O);addEventListener('resize',Y);");
+    }
     html = html.replace(
       script[0],
       '<script type="module">' +

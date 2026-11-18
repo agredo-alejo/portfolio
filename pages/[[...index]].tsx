@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import Canvas from "@/components/canvas";
@@ -11,7 +11,6 @@ import Skills from "@/components/skills";
 import Footer from "@/components/footer/footer";
 export default function Home() {
   const router = useRouter();
-  const [backgroundPaused, setBackgroundPaused] = useState(false);
   useEffect(() => {
     const destination =
       window.location.hash.slice(1) ||
@@ -40,7 +39,7 @@ export default function Home() {
       <a className="skip-link" href="#projects">
         Skip to projects
       </a>
-      <Canvas paused={backgroundPaused} />
+      <Canvas />
       <div className="first-screen">
         <Navbar />
         <Header />
@@ -50,10 +49,7 @@ export default function Home() {
         <Experiments />
         <Skills />
       </main>
-      <Footer
-        backgroundPaused={backgroundPaused}
-        onToggleBackground={() => setBackgroundPaused((value) => !value)}
-      />
+      <Footer />
     </>
   );
 }

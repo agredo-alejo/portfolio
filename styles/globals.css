@@ -313,13 +313,18 @@ textarea:focus-visible {
   border-radius: 6px 6px 1px 1px;
   box-shadow: 0 8px 18px #0004;
 }
-.laptop-display > img {
+.desktop-capture {
   display: block;
+  /* Preserve the capture height; clip only its 15px browser scrollbar edge. */
+  aspect-ratio: 1250/712;
+  overflow: hidden;
   width: 100%;
+}
+.desktop-capture > img {
+  display: block;
+  width: calc(100% * 1265 / 1250);
+  max-width: none;
   height: auto;
-  aspect-ratio: 16/10;
-  object-fit: cover;
-  object-position: top;
 }
 .device-camera {
   position: absolute;
@@ -424,13 +429,8 @@ textarea:focus-visible {
   color: #bcbcbc;
   font-weight: 400;
 }
-.expanded-project-image {
-  display: block;
-  max-height: calc(100svh - 105px);
-  max-width: calc(100vw - 42px);
-  width: auto;
-  height: auto;
-  object-fit: contain;
+.expanded-desktop-capture {
+  width: min(calc((100svh - 105px) * 1250 / 712), calc(100vw - 42px));
   margin: auto;
 }
 .expanded-phone-capture {
@@ -458,10 +458,6 @@ textarea:focus-visible {
   color: var(--muted);
   font-size: 13px;
 }
-.experiment-tabs button span {
-  font-size: 10px;
-  color: #bfbfbf;
-}
 .experiment-tabs button[aria-selected="true"] {
   border-color: #ccc;
   background: #464646;
@@ -479,20 +475,6 @@ textarea:focus-visible {
   overflow: hidden;
   background: var(--surface);
 }
-.player-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  padding: 14px 15px;
-}
-.player-header h3 {
-  font-size: 16px;
-}
-.player-header > span {
-  font-size: 11px;
-  color: var(--muted);
-}
 .experiment-stage {
   position: relative;
   aspect-ratio: 16/10;
@@ -506,15 +488,15 @@ textarea:focus-visible {
   width: 100%;
   height: 100%;
   border: 0;
+  /* Original canvases with transparent pixels were displayed on white pages. */
+  background: #fff;
 }
 .experiment-poster {
   object-fit: contain;
 }
-.experiment-description {
-  padding: 8px 15px 15px;
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--muted);
+.experiment-title {
+  padding: 13px 15px;
+  font-size: 16px;
 }
 .experiment-failure {
   position: absolute;
@@ -566,12 +548,6 @@ textarea:focus-visible {
   border-color: #c7c7c7;
   background: #414141;
   color: #fff;
-}
-.experiment-choices > p {
-  font-size: 11px;
-  line-height: 1.7;
-  padding: 5px 2px;
-  color: var(--muted);
 }
 .skills-section {
   padding: 65px 20px 60px;
@@ -709,24 +685,6 @@ textarea:focus-visible {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.work-phone {
-  font-size: 13px;
-  color: #eee;
-  margin-top: 6px;
-}
-.work-phone:hover {
-  text-decoration: underline;
-}
-.background-toggle {
-  background: transparent;
-  border: 0;
-  padding: 8px 4px;
-  color: #ddd;
-  font-size: 11px;
-  margin-top: 9px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
 @media (max-width: 760px) {
   .experiment-layout {
     grid-template-columns: 1fr;
@@ -735,9 +693,6 @@ textarea:focus-visible {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 9px;
-  }
-  .experiment-choices > p {
-    grid-column: 1/-1;
   }
   .experiment-choice > img {
     width: 54px;
@@ -831,8 +786,8 @@ textarea:focus-visible {
   .image-dialog-toolbar h2 {
     font-size: 14px;
   }
-  .expanded-project-image {
-    max-width: calc(100vw - 22px);
+  .expanded-desktop-capture {
+    width: min(calc((100svh - 105px) * 1250 / 712), calc(100vw - 22px));
   }
   .icon-link,
   .icon-button {
@@ -845,9 +800,6 @@ textarea:focus-visible {
   }
   .experiment-tabs {
     gap: 7px;
-  }
-  .experiment-tabs button span {
-    font-size: 10px;
   }
   .experiment-choices {
     grid-template-columns: 1fr;

@@ -16,7 +16,7 @@ export const projectsList = [
     kind: "Editorial website",
     description:
       "An art-led experience, brought into a website that can grow with it.",
-    desktop: "/projects/yatum-desktop.jpg",
+    desktop: "/projects/yatum-desktop-wide.jpg",
     phone: "/projects/yatum-phone.jpg",
     link: "https://www.experienciayatum.com/",
     techs: ["Next.js", "TypeScript", "Tailwind CSS"],

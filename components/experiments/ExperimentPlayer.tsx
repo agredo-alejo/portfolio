@@ -9,7 +9,7 @@ export default function ExperimentPlayer({
   experiment: Experiment;
 }) {
   const frame = useRef<HTMLIFrameElement>(null);
-  const container = useRef<HTMLDivElement>(null);
+  const container = useRef<HTMLElement>(null);
   const [entered, setEntered] = useState(false);
   const [visible, setVisible] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -65,7 +65,7 @@ export default function ExperimentPlayer({
     window.addEventListener("message", message);
     send(active);
     return () => window.removeEventListener("message", message);
-  }, [active, send, revision]);
+  }, [active, ready, send, revision]);
 
   useEffect(() => {
     if (!loaded || ready || failed) return;
@@ -82,27 +82,12 @@ export default function ExperimentPlayer({
     setRevision((value) => value + 1);
   }
   return (
-    <div
+    <figure
       className="experiment-player"
       ref={container}
       aria-busy={loaded && !ready && !failed}
+      data-playback={reducedMotion ? "reduced" : failed ? "failed" : !ready ? "loading" : active ? "playing" : "paused"}
     >
-      <div className="player-header">
-        <h3>{experiment.title}</h3>
-        <span role="status">
-          {reducedMotion
-            ? "Reduced motion"
-            : failed
-              ? "Unavailable"
-              : !loaded
-                ? "Plays in view"
-                : !ready
-                  ? "Loading…"
-                  : active
-                    ? "Playing here"
-                    : "Paused offscreen"}
-        </span>
-      </div>
       <div className="experiment-stage">
         {!loaded && (
           <Image
@@ -131,7 +116,7 @@ export default function ExperimentPlayer({
           </div>
         )}
       </div>
-      <p className="experiment-description">{experiment.description}</p>
-    </div>
+      <figcaption className="experiment-title">{experiment.title}</figcaption>
+    </figure>
   );
 }

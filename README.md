@@ -20,7 +20,7 @@ The Node engine is pinned to `24.x`. Vercel uses this declaration on the next de
 | Change                                             | Start here                                                                     |
 | -------------------------------------------------- | ------------------------------------------------------------------------------ |
 | Add/update a website or app                        | `components/projects/projectsList.ts`                                          |
-| Laptop, overlapping phone, capture crop and modal  | `components/projects/DeviceMockups.tsx`, `PhoneCapture.tsx`, `ImageDialog.tsx` |
+| Laptop, overlapping phone, capture crop and modal  | `components/projects/DeviceMockups.tsx`, `DesktopCapture.tsx`, `PhoneCapture.tsx`, `ImageDialog.tsx` |
 | Add an experiment or category                      | `components/experiments/catalog.ts`                                            |
 | Inline autoplay, visibility and reduced motion     | `components/experiments/ExperimentPlayer.tsx`                                  |
 | Original experiment source                         | `public/particle`, `public/math`, `public/render`, `public/genetic`            |
@@ -38,13 +38,13 @@ Add a catalog entry with a unique ID, title, description, technology list and **
 
 ### Experiments
 
-Add an entry to an existing category, or add a new category, in `catalog.ts`. Set a unique lowercase slug, description, preview and the original local HTML entry point. Place its scripts/assets under `public/` and keep the scripts local. Run:
+Add an entry to an existing category, or add a new category, in `catalog.ts`. Set a unique lowercase slug, original title, preview and the original local HTML entry point. Place its scripts/assets under `public/` and keep the scripts local. Run:
 
 ```sh
 npm run prepare:experiments
 ```
 
-Development/build runs this automatically. The script validates IDs and paths, preserves the original sources and generates isolated `public/experiments/runtime` players with a small animation-control bridge. The selected experiment loads and plays automatically when visible, then pauses outside the viewport and while the document is hidden. There are no playback/restart buttons. Reduced-motion mode shows its static preview. Arrow keys, Home and End operate category tabs. The twelve entries and source bundles are the same selection as the original portfolio; two copied titles in the old catalog were corrected to match their actual source. This is not a claim that every historical entry in the separate prácticas archive works.
+Development/build runs this automatically. The script validates IDs and paths, preserves the original sources and generates isolated `public/experiments/runtime` players with a small animation-control bridge. The selected experiment loads and plays automatically when visible, then pauses outside the viewport and while the document is hidden. Only the original title appears below the canvas; there are no playback/restart buttons or helper captions. Transparent experiments retain their original white page background. The boids runtime adapter rebuilds its spatial grid on resize while leaving the archived bundle unchanged. Reduced-motion mode shows its static preview. Arrow keys, Home and End operate category tabs. The twelve entries and source bundles are the same selection as the original portfolio; two copied titles in the old catalog were corrected to match their actual source. This is not a claim that every historical entry in the separate prácticas archive works.
 
 ## Server email: reuse the existing Gmail account
 

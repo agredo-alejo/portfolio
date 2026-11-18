@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Particle } from "./particle";
 import { useReducedMotion } from "../shared/useReducedMotion";
-export default function Canvas({ paused = false }: { paused?: boolean }) {
+export default function Canvas() {
   const ref = useRef<HTMLCanvasElement>(null);
   const reduced = useReducedMotion();
   useEffect(() => {
@@ -39,12 +39,12 @@ export default function Canvas({ paused = false }: { paused?: boolean }) {
     }
     resize();
     window.addEventListener("resize", resize);
-    if (!paused && !reduced) animation = requestAnimationFrame(tick);
+    if (!reduced) animation = requestAnimationFrame(tick);
     return () => {
       cancelAnimationFrame(animation);
       window.removeEventListener("resize", resize);
     };
-  }, [paused, reduced]);
+  }, [reduced]);
   return (
     <canvas ref={ref} className="particle-background" aria-hidden="true" />
   );

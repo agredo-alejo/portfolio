@@ -1,4 +1,4 @@
-import Image from "next/image";
+import DesktopCapture from "./DesktopCapture";
 import type { PortfolioProject, ProjectPreview } from "./model";
 import PhoneCapture from "./PhoneCapture";
 export default function DeviceMockups({
@@ -24,12 +24,9 @@ export default function DeviceMockups({
       >
         <span className="laptop-display">
           <span className="device-camera" />
-          <Image
+          <DesktopCapture
             src={project.desktop}
             alt={project.title + " on a laptop"}
-            width={1280}
-            height={800}
-            sizes="(max-width: 680px) 80vw, 43vw"
           />
         </span>
         <span className="laptop-base">

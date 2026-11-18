@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import Image from "next/image";
+import DesktopCapture from "./DesktopCapture";
 import type { ProjectPreview } from "./model";
 import Icon from "../shared/Icon";
 import PhoneCapture from "./PhoneCapture";
@@ -65,13 +65,10 @@ export default function ImageDialog({
               expanded
             />
           ) : (
-            <Image
-              className={"expanded-project-image expanded-" + preview.device}
+            <DesktopCapture
               src={preview.image}
               alt={preview.title + " " + preview.device + " website capture"}
-              width={1280}
-              height={800}
-              unoptimized
+              expanded
             />
           )}
         </div>

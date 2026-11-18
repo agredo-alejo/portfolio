@@ -67,6 +67,25 @@ test("preserves the first screen and replaces the project selection", async ({
   });
   const laptop = await page.locator(".laptop-mockup").first().boundingBox();
   const phone = await page.locator(".phone-mockup").first().boundingBox();
+  for (const capture of await page.locator(".laptop-display .desktop-capture").all()) {
+    await capture.scrollIntoViewIfNeeded();
+    const screen = await capture.boundingBox();
+    expect(screen!.width / screen!.height).toBeCloseTo(1250 / 712, 2);
+    const image = capture.locator("img");
+    await expect.poll(() => image.evaluate(element => {
+      const image = element as HTMLImageElement;
+      return image.complete && image.naturalWidth > 0;
+    })).toBe(true);
+    const ratio = await image.evaluate(element => {
+      const image = element as HTMLImageElement;
+      return image.naturalWidth / image.naturalHeight;
+    });
+    expect(ratio).toBeCloseTo(1265 / 712, 2);
+    const box = await image.boundingBox();
+    expect(box!.width).toBeGreaterThan(screen!.width);
+    expect(box!.height).toBeCloseTo(screen!.height, 0);
+    await expect(capture).toHaveCSS("overflow", "hidden");
+  }
   expect(phone!.x).toBeLessThan(laptop!.x + laptop!.width);
   expect(phone!.y).toBeGreaterThan(laptop!.y);
   expect(phone!.y + phone!.height).toBeGreaterThan(laptop!.y + laptop!.height);
@@ -128,9 +147,7 @@ test("all original experiments autoplay inline without playback buttons", async 
       await page
         .getByRole("button", { name: experiment.title, exact: true })
         .click();
-      await expect(page.locator(".player-header")).toContainText(
-        "Playing here",
-      );
+      await expect(page.locator(".experiment-player")).toHaveAttribute("data-playback", "playing");
       await expect(page.locator(".experiment-stage iframe")).toHaveCount(1);
       await expect(page.locator(".experiment-stage iframe")).toHaveAttribute(
         "src",
@@ -139,9 +156,19 @@ test("all original experiments autoplay inline without playback buttons", async 
       await expect(
         page.frameLocator(".experiment-stage iframe").locator("canvas"),
       ).toBeVisible();
+      await expect(page.locator(".experiment-player figcaption")).toHaveText(experiment.title);
+      const stage = await page.locator(".experiment-stage").boundingBox();
+      const caption = await page.locator("figcaption").boundingBox();
+      expect(caption!.y).toBeGreaterThanOrEqual(stage!.y + stage!.height - 1);
+      if (["boids", "gravity", "cylinder"].includes(experiment.id)) {
+        await expect(page.locator(".experiment-stage iframe")).toHaveCSS("background-color", "rgb(255, 255, 255)");
+        await page.locator(".experiment-player").screenshot({ path: "artifacts/qa/desktop-" + experiment.id + ".png" });
+      }
     }
   }
-  await expect(page.locator(".player-controls, .player-start")).toHaveCount(0);
+  await expect(page.locator(".player-controls, .player-start, .player-header, .experiment-description")).toHaveCount(0);
+  await expect(page.locator(".experiment-player figcaption")).toHaveText("visualize relationship");
+  await expect(page.getByText("Playing here", { exact: true })).toHaveCount(0);
   await expect(
     page.locator('#experiments').getByRole("button", { name: /^(Play|Pause|Reset) / }),
   ).toHaveCount(0);
@@ -158,12 +185,12 @@ test("tabs preserve keyboard navigation, reduced motion and automatic playback",
   await expect(
     page.getByRole("tab", { name: /Graphics & geometry/ }),
   ).toHaveAttribute("aria-selected", "true");
-  await page.getByRole("button", { name: "Tesseract", exact: true }).click();
-  await expect(page.locator(".player-header")).toContainText("Reduced motion");
+  await page.getByRole("button", { name: "tesseract", exact: true }).click();
+  await expect(page.locator(".experiment-player")).toHaveAttribute("data-playback", "reduced");
   await expect(page.locator(".experiment-stage iframe")).toHaveCount(0);
   await expect(page.locator(".experiment-poster")).toBeVisible();
   await page.emulateMedia({ reducedMotion: "no-preference" });
-  await expect(page.locator(".player-header")).toContainText("Playing here");
+  await expect(page.locator(".experiment-player")).toHaveAttribute("data-playback", "playing");
   const canvas = page
     .frameLocator(".experiment-stage iframe")
     .locator("canvas");
@@ -179,9 +206,7 @@ test("tabs preserve keyboard navigation, reduced motion and automatic playback",
     path: "artifacts/qa/" + info.project.name + "-experiments.png",
   });
   await page.locator(".intro").scrollIntoViewIfNeeded();
-  await expect(page.locator(".player-header")).toContainText(
-    "Paused offscreen",
-  );
+  await expect(page.locator(".experiment-player")).toHaveAttribute("data-playback", "paused");
   await expect
     .poll(async () => {
       const before = await canvas.evaluate((element) =>
@@ -197,7 +222,7 @@ test("tabs preserve keyboard navigation, reduced motion and automatic playback",
     })
     .toBe(true);
   await page.getByRole("link", { name: "Experiments", exact: true }).click();
-  await expect(page.locator(".player-header")).toContainText("Playing here");
+  await expect(page.locator(".experiment-player")).toHaveAttribute("data-playback", "playing");
   const resumed = await canvas.evaluate((element) =>
     (element as HTMLCanvasElement).toDataURL(),
   );
@@ -230,11 +255,13 @@ test("professional icons and tech logos keep real destinations and hover shine",
   await expect(react).toHaveAttribute("target", "_blank");
   await expect(react).toHaveAttribute("rel", "noopener noreferrer");
   await expect(page.locator(".skill-link")).toHaveCount(14);
+  await expect(page.getByRole("button", { name: /background animation/i })).toHaveCount(0);
+  await expect(page.getByText("(786) 496-3019", { exact: true })).toHaveCount(0);
   await expect(
     page.locator(".contact-footer .contact-links .ui-icon"),
-  ).toHaveCount(4);
+  ).toHaveCount(5);
   await expect(
-    page.getByRole("link", { name: "(786) 496-3019", exact: true }),
+    page.locator(".contact-footer").getByRole("link", { name: "Call Alejandro", exact: true }),
   ).toHaveAttribute("href", "tel:+17864963019");
 });
 test("contact sends through local SMTP and shows success only after acceptance", async ({
