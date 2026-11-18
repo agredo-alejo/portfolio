@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Alejandro Agredo bold black-to-gray favicon">
+  <title>Alejandro Agredo bold black-to-gray favicon</title>
+  <defs>
+    <linearGradient id="left" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050505"/>
+      <stop offset="1" stop-color="#454545"/>
+    </linearGradient>
+    <linearGradient id="right" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B0B0B"/>
+      <stop offset="1" stop-color="#767676"/>
+    </linearGradient>
+    <linearGradient id="inner" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111111"/>
+      <stop offset="1" stop-color="#555555"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="42" fill="#F2F2F2"/>
+  <!-- Slightly heavier facets keep the existing A recognizable at 16px. -->
+  <g stroke-width="8" stroke-linejoin="round">
+    <path fill="url(#left)" stroke="url(#left)" d="M128 27 128 88 55 216 16 216Z"/>
+    <path fill="url(#right)" stroke="url(#right)" d="M128 27 240 216 201 216 128 88Z"/>
+    <path fill="url(#inner)" stroke="url(#inner)" d="M128 121 174 199 128 177 82 199Z"/>
+  </g>
+</svg>
