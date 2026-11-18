@@ -1,31 +1,30 @@
-import { scrollIntoView } from "@/utils/scrollIntoView";
-
-import { useRouter } from "next/router";
-import React, { useEffect, useRef } from "react";
+import { useState } from "react";
 import Project from "./project";
 import { projectsList } from "./projectsList";
-
-export type ProjectType = typeof projectsList[number];
-
-function Projects() {
-   const router = useRouter();
-   const scrollRef = useRef<HTMLDivElement>(null);
-
-   useEffect(() => {
-      if (router.asPath !== "/projects") return;
-
-      scrollIntoView(scrollRef);
-   }, [router]);
-   return (
-      <section
-         ref={scrollRef}
-         className="flex flex-col items-center w-full pt-4 mb-16 gap-y-12"
-      >
-         {projectsList.map((project, index) => (
-            <Project key={project.link} project={project} index={index} />
-         ))}
-      </section>
-   );
+import type { ProjectPreview } from "./model";
+import ImageDialog from "./ImageDialog";
+export default function Projects() {
+  const [preview, setPreview] = useState<ProjectPreview | null>(null);
+  return (
+    <section
+      className="section projects-section"
+      id="projects"
+      aria-labelledby="projects-heading"
+    >
+      <div className="section-heading">
+        <span className="eyebrow">Websites & software</span>
+        <h2 id="projects-heading">Projects</h2>
+        <p>Different ideas. Built to work on a real screen.</p>
+      </div>
+      {projectsList.map((project, index) => (
+        <Project
+          key={project.id}
+          project={project}
+          index={index}
+          onPreview={setPreview}
+        />
+      ))}
+      <ImageDialog preview={preview} onClose={() => setPreview(null)} />
+    </section>
+  );
 }
-
-export default Projects;

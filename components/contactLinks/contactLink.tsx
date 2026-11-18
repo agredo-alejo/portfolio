@@ -1,22 +1,23 @@
-import Link from "next/link";
-import React from "react";
-
-function ContactLink({
-   link,
-   children,
+import type { ReactNode } from "react";
+export default function ContactLink({
+  link,
+  label,
+  children,
 }: {
-   link: string;
-   children: React.ReactNode;
+  link: string;
+  label: string;
+  children: ReactNode;
 }) {
-   return (
-      <Link
-         href={link}
-         target="_blank"
-         className="hover:text-white hover:drop-shadow-[0_0_.1rem_gray] drop-shadow-[.1rem_.1rem_.1rem_#454545] m-2"
-      >
-         {children}
-      </Link>
-   );
+  return (
+    <a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="icon-link"
+      aria-label={label}
+      title={label}
+    >
+      {children}
+    </a>
+  );
 }
-
-export default ContactLink;

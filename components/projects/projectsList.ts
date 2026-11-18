@@ -1,38 +1,49 @@
+import type { PortfolioProject } from "./model";
 export const projectsList = [
-   {
-      desk: "/webimg/h_ageofemotions.png",
-      phone: "/webimg/v_ageofemotions.png",
-      photoURL: "/webimg/ageofemotions.png",
-      link: "https://www.ageofemotions.com/",
-      github: "https://github.com/agredo-alejo/amayliberate",
-      title: "Age Of Emotions",
-      techs: ["NextJs", "MailerLite", "Stripe", "Tyescript", "TailwindCss"],
-   },
-   {
-      desk: "/webimg/h_jiyaki.png",
-      phone: "/webimg/v_jiyaki.png",
-      photoURL: "/webimg/jiyaki.png",
-      link: "https://jiyaki.web.app/",
-      github: "https://github.com/agredo-alejo/jiyaki",
-      title: "Jiyaki",
-      techs: ["React", "Tyescript", "Sass", "Firebase"],
-   },
-   {
-      desk: "/webimg/h_chat.png",
-      phone: "/webimg/v_chat.png",
-      photoURL: "/webimg/apollochat.png",
-      link: "https://apollochat.vercel.app/",
-      github: "https://github.com/agredo-alejo/apollochat",
-      title: "Apollo Chat",
-      techs: ["NextJs", "Tyescript", "TailwindCss", "Firebase"],
-   },
-   {
-      desk: "/webimg/h_inventory.png",
-      phone: "/webimg/v_inventory.png",
-      photoURL: "/webimg/inventory.png",
-      link: "https://products-inventory-275.web.app/stats",
-      github: "https://github.com/agredo-alejo/products-inventory",
-      title: "Inventory Management",
-      techs: ["React", "Tyescript", "Sass", "Firebase"],
-   },
-];
+  {
+    id: "daya",
+    title: "Daya Muneton",
+    kind: "Artist website & commerce",
+    description: "A space for her art, her community, and emotional education.",
+    desktop: "/projects/daya-desktop.jpg",
+    phone: "/projects/daya-phone.jpg",
+    link: "https://www.dayamuneton.com/",
+    techs: ["Next.js", "React", "Firebase"],
+  },
+  {
+    id: "yatum",
+    title: "Experiencia Yatum",
+    kind: "Editorial website",
+    description:
+      "An art-led experience, brought into a website that can grow with it.",
+    desktop: "/projects/yatum-desktop.jpg",
+    phone: "/projects/yatum-phone.jpg",
+    link: "https://www.experienciayatum.com/",
+    techs: ["Next.js", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    id: "herencia",
+    title: "Empanadas Herencia",
+    kind: "Commerce & pickup ordering",
+    description:
+      "From exploring the menu to pickup ordering and behind-the-counter administration.",
+    details:
+      "The current preview uses simulated orders and does not collect payments.",
+    desktop: "/projects/herencia-desktop.jpg",
+    phone: "/projects/herencia-phone.jpg",
+    link: "https://empanadas-herencia.vercel.app/",
+    techs: ["Next.js", "TypeScript", "Firestore"],
+  },
+  {
+    id: "workoutsync",
+    title: "WorkoutSync",
+    kind: "Personal project",
+    description:
+      "A training app for recording the work and seeing progress over time.",
+    details: "Dashboard shown with sample data.",
+    desktop: "/projects/workoutsync-desktop.jpg",
+    phone: "/projects/workoutsync-phone.jpg",
+    link: "https://www.workoutsync.com/",
+    techs: ["Next.js", "React", "Firebase"],
+  },
+] as const satisfies readonly PortfolioProject[];

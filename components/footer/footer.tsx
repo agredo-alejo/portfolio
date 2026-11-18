@@ -1,29 +1,32 @@
-import ContactLinks from "@/components/contactLinks/contactLinks";
-import { scrollIntoView } from "@/utils/scrollIntoView";
-import { useRouter } from "next/router";
-import React, { useEffect, useRef } from "react";
+import ContactLinks from "../contactLinks/contactLinks";
 import ContactForm from "./contactForm";
-
-function Footer() {
-   const router = useRouter();
-   const scrollRef = useRef<HTMLFormElement>(null);
-
-   useEffect(() => {
-      if (router.asPath !== "/contact") return;
-
-      scrollIntoView(scrollRef);
-   }, [router]);
-
-   return (
-      <footer
-         ref={scrollRef}
-         className="topTriangleClipPath w-full bg-[#555] flex flex-col items-center pt-16 pb-8"
+import { professionalContact as contact } from "../shared/contact";
+export default function Footer({
+  backgroundPaused,
+  onToggleBackground,
+}: {
+  backgroundPaused: boolean;
+  onToggleBackground: () => void;
+}) {
+  return (
+    <footer
+      className="contact-footer"
+      id="contact"
+      aria-labelledby="contact-heading"
+    >
+      <h2 id="contact-heading">Contact</h2>
+      <ContactForm />
+      <ContactLinks />
+      <a className="work-phone" href={"tel:" + contact.phone}>
+        {contact.phoneDisplay}
+      </a>
+      <button
+        className="background-toggle"
+        type="button"
+        onClick={onToggleBackground}
       >
-         <h2 className="text-2xl text-white">Contact</h2>
-         <ContactForm />
-         <ContactLinks />
-      </footer>
-   );
+        {backgroundPaused ? "Resume" : "Pause"} background animation
+      </button>
+    </footer>
+  );
 }
-
-export default Footer;

@@ -1,45 +1,49 @@
-import React from "react";
-import { BiLinkExternal } from "react-icons/bi";
-import { FiGithub } from "react-icons/fi";
-import { ProjectType } from "./projects";
-
-function ProjectInfo({ project }: { project: ProjectType }) {
-   return (
-      <div className="flex flex-col max-w-xl p-2 mb-4 ml-4 text-gray-200 sm:w-1/2">
-         <div className="flex items-center justify-between w-full mb-2 mr-4">
-            <h2 className="text-2xl notranslate">{project.title}</h2>
-            <span className="flex items-center justify-center text-xl">
-               <a
-                  className="flex "
-                  href={project.github}
-                  target="_blank"
-                  rel="noreferrer"
-               >
-                  <FiGithub className="hover:drop-shadow-[.1rem_0_.1rem_gray]" />
-               </a>
-               <a
-                  className="flex ml-1"
-                  href={project.link}
-                  target="_blank"
-                  rel="noreferrer"
-               >
-                  <BiLinkExternal className="hover:drop-shadow-[.1rem_0_.1rem_gray]" />
-               </a>
-            </span>
-         </div>
-
-         <span className="flex flex-wrap border-b-2 border-[#444] ">
-            {project.techs.map((tech: string) => (
-               <p
-                  key={tech}
-                  className="mr-2 mb-2 px-2 bg-[#0000001a] text-white cursor-default notranslate"
-               >
-                  {tech}
-               </p>
-            ))}
-         </span>
+import type { PortfolioProject } from "./model";
+import Icon from "../shared/Icon";
+export default function ProjectInfo({
+  project,
+}: {
+  project: PortfolioProject;
+}) {
+  return (
+    <div className="project-copy">
+      <span className="eyebrow">{project.kind}</span>
+      <div className="project-title">
+        <h3 id={"project-" + project.id}>{project.title}</h3>
+        <div className="project-links">
+          {project.github && (
+            <a
+              className="icon-link"
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={project.title + " source code"}
+              title="Source code"
+            >
+              <Icon name="github" />
+            </a>
+          )}
+          {project.link && (
+            <a
+              className="icon-link"
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={"Visit " + project.title}
+              title="Visit website"
+            >
+              <Icon name="external" />
+            </a>
+          )}
+        </div>
       </div>
-   );
+      <p>{project.description}</p>
+      <ul className="tech-tags" aria-label={project.title + " technologies"}>
+        {project.techs.map((tech) => (
+          <li key={tech}>{tech}</li>
+        ))}
+      </ul>
+      {project.details && <p className="project-note">{project.details}</p>}
+    </div>
+  );
 }
-
-export default ProjectInfo;

@@ -1,15 +1,9 @@
-import Link from "next/link";
-import React from "react";
-import NavItem from "./navItem";
-
-function Navbar() {
-   return (
-      <div className="flex justify-end w-full text-white ">
-         <NavItem text="projects" link="/projects" />
-         <NavItem text="experiments" link="/experiments" />
-         <NavItem text="contact" link="/contact" />
-      </div>
-   );
+export default function Navbar() {
+  return (
+    <nav className="main-nav" aria-label="Main navigation">
+      <a href="#projects">Projects</a>
+      <a href="#experiments">Experiments</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  );
 }
-
-export default Navbar;

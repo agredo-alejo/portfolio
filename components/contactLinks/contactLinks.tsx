@@ -1,27 +1,21 @@
-import React from "react";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import EmailIcon from "@mui/icons-material/Email";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
 import ContactLink from "./contactLink";
-
-function ContactLinks() {
-   return (
-      <div className="flex text-gray-300">
-         <ContactLink link="mailto:agredoalejo@gmail.com">
-            <EmailIcon />
-         </ContactLink>
-         <ContactLink link="https://www.linkedin.com/in/alejandro-agredo-portilla/">
-            <LinkedInIcon />
-         </ContactLink>
-         <ContactLink link="https://github.com/agredo-alejo">
-            <GitHubIcon />
-         </ContactLink>
-         <ContactLink link="/resume-alejandro-agredo.pdf">
-            <AttachFileIcon />
-         </ContactLink>
-      </div>
-   );
+import Icon from "../shared/Icon";
+import { professionalContact as contact } from "../shared/contact";
+export default function ContactLinks() {
+  return (
+    <div className="contact-links" aria-label="Professional links">
+      <ContactLink link={"mailto:" + contact.email} label="Email Alejandro">
+        <Icon name="email" />
+      </ContactLink>
+      <ContactLink link={contact.linkedin} label="LinkedIn profile">
+        <Icon name="linkedin" />
+      </ContactLink>
+      <ContactLink link={contact.github} label="GitHub profile">
+        <Icon name="github" />
+      </ContactLink>
+      <ContactLink link={contact.resume} label="Open résumé PDF">
+        <Icon name="resume" />
+      </ContactLink>
+    </div>
+  );
 }
-
-export default ContactLinks;

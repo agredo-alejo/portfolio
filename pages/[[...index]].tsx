@@ -1,54 +1,69 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import type { GetStaticPaths, GetStaticProps } from "next";
 import Canvas from "@/components/canvas";
 import Header from "@/components/header/header";
+import Navbar from "@/components/navbar/navbar";
+import Projects from "@/components/projects/projects";
+import Experiments from "@/components/experiments/experiments";
 import Skills from "@/components/skills";
 import Footer from "@/components/footer/footer";
-import Navbar from "@/components/navbar/navbar";
-import Solutions from "@/components/solutions/solutions";
-import Experiments from "@/components/experiments/experiments";
-import Projects from "@/components/projects/projects";
-
-function Home() {
-   const description =
-      "My passion for web development is fueled by my love of problem-solving and the constant opportunity to learn and improve my skills.";
-
-   return (
-      <div className="flex flex-col items-center w-full h-full">
-         <Head>
-            <title> Alejandro Agredo | Web Developer </title>
-            <meta name="description" content={description} />
-            <meta
-               name="keywords"
-               content="Portfolio, Web Developer, Web, Developer, Tyescript, Node, Front-end, developer, React, NextJS, HTML, CSS, Alejandro Agredo, Alejandro, Agredo, JavaScript"
-            />
-            <meta itemProp="description" content={description} />
-            <meta name="author" content="Alejandro Agredo" />
-            <meta
-               property="og:url"
-               content="https://www.alejandroagredo.com/"
-            />
-            <meta
-               property="og:title"
-               content="Alejandro Agredo | Web Developer"
-            />
-            <meta property="og:description" content={description} />
-            <meta property="og:type" content="website" />
-            <link rel="icon" href="/favicon.ico" />
-            <meta
-               name="viewport"
-               content="width=device-width, initial-scale=1"
-            />
-         </Head>
-         <Canvas />
-         <Navbar />
-
-         <Header />
-         <Projects />
-         <Experiments />
-         <Skills />
-         <Footer />
+export default function Home() {
+  const router = useRouter();
+  const [backgroundPaused, setBackgroundPaused] = useState(false);
+  useEffect(() => {
+    const destination =
+      window.location.hash.slice(1) ||
+      (Array.isArray(router.query.index) ? router.query.index[0] : "");
+    if (["projects", "experiments", "contact"].includes(destination))
+      document
+        .getElementById(destination)
+        ?.scrollIntoView({ behavior: "instant" });
+  }, [router.query.index]);
+  const description =
+    "Websites, software, and interactive experiments by Alejandro Agredo, a developer based in South Florida.";
+  return (
+    <>
+      <Head>
+        <title>Alejandro Agredo | Web Developer</title>
+        <meta name="description" content={description} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="Alejandro Agredo" />
+        <link rel="canonical" href="https://www.alejandroagredo.com/" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="Alejandro Agredo | Web Developer" />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.alejandroagredo.com/" />
+      </Head>
+      <a className="skip-link" href="#projects">
+        Skip to projects
+      </a>
+      <Canvas paused={backgroundPaused} />
+      <div className="first-screen">
+        <Navbar />
+        <Header />
       </div>
-   );
+      <main>
+        <Projects />
+        <Experiments />
+        <Skills />
+      </main>
+      <Footer
+        backgroundPaused={backgroundPaused}
+        onToggleBackground={() => setBackgroundPaused((value) => !value)}
+      />
+    </>
+  );
 }
-
-export default Home;
+export const getStaticPaths: GetStaticPaths = () => ({
+  paths: [
+    { params: { index: [] } },
+    { params: { index: ["projects"] } },
+    { params: { index: ["experiments"] } },
+    { params: { index: ["contact"] } },
+  ],
+  fallback: false,
+});
+export const getStaticProps: GetStaticProps = () => ({ props: {} });

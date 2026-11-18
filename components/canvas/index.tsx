@@ -1,60 +1,51 @@
-import React, { useEffect, useRef } from "react";
-import {
-   startAnimation,
-   animation,
-   background,
-   stopAnimation,
-} from "@apjs/dynamic";
+import { useEffect, useRef } from "react";
 import { Particle } from "./particle";
-
-function Canvas() {
-   const canvasRef = useRef<HTMLCanvasElement>(null);
-
-   useEffect(() => {
-      const ctx = canvasRef.current?.getContext("2d");
-      if (!ctx) return;
-
-      let particles: Particle[] = [];
-      let numParticles = 25;
-
-      for (let i = 0; i < numParticles; i++) {
-         particles.push(new Particle());
-      }
-
-      animation.animate(() => {
-         if (!ctx) return;
-
-         background(ctx, "#333");
-
-         for (let particle of particles) {
-            particle.update(ctx, particles);
-         }
-      });
-      startAnimation();
-
-      function resize() {
-         if (!ctx) return;
-
-         ctx.canvas.width = window.innerWidth + 1;
-         ctx.canvas.height = window.innerHeight + 1;
-
-         particles = [];
-         for (let i = 0; i < numParticles; i++) {
-            particles.push(new Particle());
-         }
-      }
-      resize();
-
-      addEventListener("resize", resize);
-      return () => {
-         stopAnimation();
-         removeEventListener("resize", resize);
-      };
-   }, []);
-
-   return (
-      <canvas ref={canvasRef} className="fixed min-w-full min-h-screen -z-10" />
-   );
+import { useReducedMotion } from "../shared/useReducedMotion";
+export default function Canvas({ paused = false }: { paused?: boolean }) {
+  const ref = useRef<HTMLCanvasElement>(null);
+  const reduced = useReducedMotion();
+  useEffect(() => {
+    const canvas = ref.current,
+      context = canvas?.getContext("2d");
+    if (!canvas || !context) return;
+    let width = 0,
+      height = 0,
+      particles: Particle[] = [],
+      animation = 0,
+      last = 0;
+    function draw(delta: number) {
+      if (!context) return;
+      context.fillStyle = "#333";
+      context.fillRect(0, 0, width, height);
+      for (const particle of particles)
+        particle.update(context, particles, width, height, delta);
+    }
+    function resize() {
+      if (!canvas || !context) return;
+      width = window.innerWidth + 1;
+      height = window.innerHeight + 1;
+      const scale = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(width * scale);
+      canvas.height = Math.round(height * scale);
+      context.setTransform(scale, 0, 0, scale, 0, 0);
+      particles = Array.from({ length: 25 }, () => new Particle(width, height));
+      draw(0);
+    }
+    function tick(time: number) {
+      const delta = last ? Math.min((time - last) / 16.667, 2) : 0;
+      last = time;
+      if (!document.hidden) draw(delta);
+      animation = requestAnimationFrame(tick);
+    }
+    resize();
+    window.addEventListener("resize", resize);
+    if (!paused && !reduced) animation = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(animation);
+      window.removeEventListener("resize", resize);
+    };
+  }, [paused, reduced]);
+  return (
+    <canvas ref={ref} className="particle-background" aria-hidden="true" />
+  );
 }
-
-export default Canvas;
